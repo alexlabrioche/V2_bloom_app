@@ -1,0 +1,4 @@
+export const RESET_OPTIONS = "RESET_OPTIONS";
+export const OPEN_SEARCH = "OPEN_SEARCH";
+export const CLOSE_SEARCH = "CLOSE_SEARCH";
+export const SET_SEARCH_VALUE = "SET_SEARCH_VALUE";

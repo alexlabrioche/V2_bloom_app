@@ -1,0 +1,26 @@
+import React from "react";
+import { Switch, Route } from "react-router-dom";
+
+import HomePage from "../../pages/HomePage";
+import MethodPage from "../../pages/MethodPage";
+import GroupPage from "../../pages/GroupPage";
+import DeputyPage from "../../pages/DeputyPage";
+
+export default function AppRoutes() {
+  return (
+    <Switch>
+      <Route path="/methode">
+        <MethodPage />
+      </Route>
+      <Route path="/depute/:slug">
+        <DeputyPage />
+      </Route>
+      <Route path="/groupe/:slug">
+        <GroupPage />
+      </Route>
+      <Route path="/">
+        <HomePage />
+      </Route>
+    </Switch>
+  );
+}

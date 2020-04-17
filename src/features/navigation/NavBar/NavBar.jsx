@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Box, Button, Heading, Select } from "grommet";
+import { Box, Button, Heading, ResponsiveContext } from "grommet";
 import { Menu, Search } from "grommet-icons";
 
 import { toggleMenu, openMenu, closeMenu } from "../navActions";
@@ -31,13 +31,29 @@ function NavBar(props) {
       style={{ zIndex: "1" }}
       {...props}
     >
-      <Box direction="row" align="center">
-        <Button icon={<Menu />} onClick={handleMenuIcon} />
-        <Heading level={4} margin="none">
-          Bloom - Notation App
-        </Heading>
-      </Box>
-      <Button icon={<Search />} onClick={handleSearchIcon} />
+      <Heading level={3} margin="none" color="brand">
+        Bloom - Notation App
+      </Heading>
+      <ResponsiveContext.Consumer>
+        {(size) => (
+          <Box direction="row" align="center">
+            <Button
+              icon={<Search />}
+              plain
+              reverse
+              label={size !== "small" ? "Rechercher" : null}
+              onClick={handleSearchIcon}
+              margin={{ right: "medium" }}
+            />
+            <Button
+              icon={<Menu />}
+              label={size !== "small" ? "Menu" : null}
+              reverse
+              onClick={handleMenuIcon}
+            />
+          </Box>
+        )}
+      </ResponsiveContext.Consumer>
     </Box>
   );
 }

@@ -1,6 +1,10 @@
 import React, { useEffect } from "react";
+import { Box, Heading } from "grommet";
 import { useParams, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+
+import DeputyCard from "../components/DeputyCard";
+import ResponsiveGrid from "../components/ResponsiveGrid";
 
 import { setGroup } from "../features/deputies/deputiesActions";
 
@@ -15,21 +19,30 @@ export default function GroupPage() {
   }, [dispatch, slug]);
 
   useEffect(() => {
-    if (groupLoaded && group.length === 0) {
+    if (groupLoaded && group.deputies.length === 0) {
       history.push("/");
     }
   }, [dispatch, history, group, groupLoaded]);
 
   return (
     <div>
-      <div>params: {slug}</div>
-      {group.map(({ group, fullName }) => {
-        return (
-          <div>
-            {group} - {fullName}
-          </div>
-        );
-      })}
+      <Heading level={1} color="accent-1">
+        {group.infos.name}
+      </Heading>
+
+      <Box border="top" margin={{ top: "xlarge" }}>
+        <Heading level={4}>Députés lié à ce groupe :</Heading>
+        <ResponsiveGrid
+          gap="medium"
+          margin="medium"
+          columns="medium"
+          rows="xsmall"
+        >
+          {group.deputies.map((deputy, index) => (
+            <DeputyCard deputy={deputy} key={index} isInGroup={true} />
+          ))}
+        </ResponsiveGrid>
+      </Box>
     </div>
   );
 }

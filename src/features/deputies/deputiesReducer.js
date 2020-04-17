@@ -6,7 +6,7 @@ const initialState = {
   all: deputies,
   deputy: {},
   deputyLoaded: false,
-  group: [],
+  group: { infos: {}, deputies: [] },
   groupLoaded: false,
 };
 
@@ -20,10 +20,15 @@ const setCurrentDeputy = (state, payload) => {
 };
 
 const setCurrentGroup = (state, payload) => {
-  const group = state.all.filter(({ groupSlug }) => groupSlug === payload.slug);
+  const deputies = state.all.filter(
+    ({ groupSlug }) => groupSlug === payload.slug
+  );
+  const infos = {
+    name: deputies[0].group,
+  };
   return {
     ...state,
-    group,
+    group: { infos, deputies },
     groupLoaded: true,
   };
 };

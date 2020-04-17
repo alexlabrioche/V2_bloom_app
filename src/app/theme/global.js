@@ -1,8 +1,7 @@
 export default {
   global: {
     colors: {
-      brand: "#0B5E91",
-      "brand-darker": "#09456A",
+      brand: "#3A84B2",
       secondary: "#889AAA",
       tertiary: "#B1BAC5",
       "accent-1": "#5973e8",

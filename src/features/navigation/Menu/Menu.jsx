@@ -11,25 +11,37 @@ import {
   ResponsiveContext,
 } from "grommet";
 import { FormClose } from "grommet-icons";
-
 import Link from "../../../components/Link";
 import { closeMenu } from "../navActions";
-
 import {
   resetOptions,
   closeSearch,
   setSelectValue,
   openSearch,
 } from "../../search/searchActions";
+import { useHistory } from "react-router-dom";
+
+function findSlugType({ deputies, value }) {
+  const deputy = deputies.filter(({ fullName }) => fullName === value)[0];
+  const group = deputies.filter(({ group }) => group === value)[0];
+  return {
+    slug: deputy ? deputy.slug : group.groupSlug,
+    type: deputy ? "depute" : "groupe",
+  };
+}
 
 export default function Menu() {
   const { isMenuVisible } = useSelector(({ nav }) => nav);
+  const { all } = useSelector(({ deputies }) => deputies);
   const { options, isOpenSearch, value } = useSelector(({ search }) => search);
   const dispatch = useDispatch();
+  const history = useHistory();
   const [searchOptions, setSearchOptions] = useState(options);
 
   const handleChange = ({ option }) => {
     dispatch(setSelectValue(option));
+    const { type, slug } = findSlugType({ deputies: all, value: option });
+    history.push(`/${type}/${slug}`);
   };
 
   const handleClose = () => {
@@ -79,17 +91,17 @@ export default function Menu() {
         <Heading
           margin={{ horizontal: "none", vertical: "small" }}
           responsive={false}
-          level={3}
+          level={4}
         >
           Naviguer :
         </Heading>
         <Link to="/">
-          <Heading margin={{ horizontal: "none", vertical: "small" }} level={5}>
+          <Heading margin={{ horizontal: "none", vertical: "small" }} level={6}>
             - Accueil
           </Heading>
         </Link>
         <Link to="/methode">
-          <Heading margin={{ horizontal: "none", vertical: "small" }} level={5}>
+          <Heading margin={{ horizontal: "none", vertical: "small" }} level={6}>
             - Méthode
           </Heading>
         </Link>

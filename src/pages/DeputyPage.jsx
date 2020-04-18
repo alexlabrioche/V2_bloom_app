@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
-import { Box, Heading, Text, Button, Stack, Image, Paragraph } from "grommet";
+import { Box, Heading, Text, Stack, Image, Paragraph } from "grommet";
 import { useParams, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setDeputy } from "../features/deputies/deputiesActions";
+import { setDeputy } from "../features/localData/localDataActions";
 import { isEmpty } from "lodash";
 import NotationPill from "../components/NotationPill";
 import defaultPic from "../app/assets/default-profile.png";
@@ -12,30 +12,32 @@ export default function DeputyPage() {
   let { slug } = useParams();
   const dispatch = useDispatch();
   const history = useHistory();
-  const { deputy, deputyLoaded } = useSelector(({ deputies }) => deputies);
+  const { deputyDetails, deputies } = useSelector(({ localData }) => localData);
 
   useEffect(() => {
     dispatch(setDeputy(slug));
-  }, [dispatch, slug]);
+  }, []);
 
   useEffect(() => {
-    if (deputyLoaded && isEmpty(deputy)) {
+    const deputy = deputies.find((deputy) => deputy.slug === slug);
+    if (isEmpty(deputy)) {
       history.push("/");
     }
-  }, [dispatch, history, deputy, deputyLoaded]);
+  }, [history, slug]);
 
   const {
     fullName,
     twitter,
     groupRole,
-    group,
-    groupSlug,
     party,
     email,
     facebook,
     website,
     profilePic,
-  } = deputy;
+    groupName,
+    groupSlug,
+  } = deputyDetails;
+
   return (
     <Box>
       <Stack anchor="top-right">
@@ -56,7 +58,7 @@ export default function DeputyPage() {
             <Paragraph fill>
               est {groupRole} du Groupe Européen{" "}
               <AppLink to={`/groupe/${groupSlug}`} color="accent-1">
-                {group}
+                {groupName}
               </AppLink>
             </Paragraph>
           </Box>
@@ -64,11 +66,11 @@ export default function DeputyPage() {
         <NotationPill grade={15} />
       </Stack>
 
-      <Text fill>Parti : {party}</Text>
-      <Text fill>{twitter}</Text>
-      <Text fill>{email}</Text>
-      <Text fill>{facebook}</Text>
-      <Text fill>{website}</Text>
+      <Text>Parti : {party}</Text>
+      <Text>{twitter}</Text>
+      <Text>{email}</Text>
+      <Text>{facebook}</Text>
+      <Text>{website}</Text>
     </Box>
   );
 }

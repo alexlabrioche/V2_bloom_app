@@ -1,4 +1,4 @@
-import { SET_DEPUTY, SET_GROUP } from "./deputiesConstants";
+import { SET_DEPUTY, SET_GROUP } from "./localDataConstants";
 
 export const setDeputy = (slug) => {
   return {

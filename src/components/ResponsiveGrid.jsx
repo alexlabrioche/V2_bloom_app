@@ -5,7 +5,7 @@ const columns = {
   small: ["auto"],
   medium: ["auto", "auto"],
   large: ["auto", "auto", "auto"],
-  xlarge: ["auto", "auto", "auto"],
+  xlarge: ["auto", "auto", "auto", "auto"],
 };
 
 const rows = {
@@ -25,7 +25,6 @@ export default function Responsive({
   return (
     <ResponsiveContext.Consumer>
       {(size) => {
-        // Take into consideration if not array is sent but a simple string
         let columnsVal = columns;
         if (columns) {
           if (columns[size]) {
@@ -40,8 +39,6 @@ export default function Responsive({
           }
         }
 
-        // Also if areas is a simple array not an object of arrays for
-        // different sizes
         let areasVal = areas;
         if (areas && !Array.isArray(areas)) areasVal = areas[size];
 

@@ -19,5 +19,22 @@ export default {
       size: "18px",
       height: "20px",
     },
+    breakpoints: {
+      xsmall: {
+        value: 320,
+      },
+      small: {
+        value: 768,
+      },
+      medium: {
+        value: 1024,
+      },
+      large: {
+        value: 1366,
+      },
+      xlarge: {
+        value: 1920,
+      },
+    },
   },
 };

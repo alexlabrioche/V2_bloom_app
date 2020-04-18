@@ -1,5 +1,5 @@
 import React from "react";
-import { Heading, Paragraph } from "grommet";
+import { Heading, Paragraph, ResponsiveContext } from "grommet";
 
 import Link from "../components/Link";
 import DeputyCard from "../components/DeputyCard";
@@ -7,10 +7,12 @@ import ResponsiveGrid from "../components/ResponsiveGrid";
 import { useSelector } from "react-redux";
 
 export default function HomePage() {
-  const { all } = useSelector(({ deputies }) => deputies);
+  const { deputies, groups } = useSelector(({ localData }) => localData);
   return (
     <div>
-      <Heading level={1}>Intro Titre</Heading>
+      <Heading level={1} textAlign="center" size="large">
+        Intro Titre{" "}
+      </Heading>
       <Paragraph fill>
         Intro texte Lorem ipsum dolor sit amet consectetur adipisicing elit.
         Accusamus alias hic velit eaque, numquam saepe architecto fugit, iusto
@@ -31,8 +33,13 @@ export default function HomePage() {
         columns="medium"
         rows="xsmall"
       >
-        {all.map((deputy, index) => (
-          <DeputyCard deputy={deputy} key={index} />
+        {deputies.map((deputy) => (
+          <DeputyCard
+            deputy={deputy}
+            group={groups.find(({ id }) => id === deputy.groupId)}
+            key={deputy.id}
+            full
+          />
         ))}
       </ResponsiveGrid>
     </div>

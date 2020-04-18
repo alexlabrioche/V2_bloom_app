@@ -5,6 +5,7 @@ import HomePage from "../../pages/HomePage";
 import MethodPage from "../../pages/MethodPage";
 import GroupPage from "../../pages/GroupPage";
 import DeputyPage from "../../pages/DeputyPage";
+import Admin from "../../features/admin/Admin";
 
 export default function AppRoutes() {
   return (
@@ -17,6 +18,9 @@ export default function AppRoutes() {
       </Route>
       <Route path="/groupe/:slug">
         <GroupPage />
+      </Route>
+      <Route path="/admin">
+        <Admin />
       </Route>
       <Route path="/">
         <HomePage />

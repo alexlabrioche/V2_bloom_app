@@ -2,32 +2,34 @@ import React, { useEffect } from "react";
 import { Box, Heading } from "grommet";
 import { useParams, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { isEmpty } from "lodash";
 
 import DeputyCard from "../components/DeputyCard";
 import ResponsiveGrid from "../components/ResponsiveGrid";
 
-import { setGroup } from "../features/deputies/deputiesActions";
+import { setGroup } from "../features/localData/localDataActions";
 
 export default function GroupPage() {
   let { slug } = useParams();
   const dispatch = useDispatch();
   const history = useHistory();
-  const { group, groupLoaded } = useSelector(({ deputies }) => deputies);
+  const { groupDetails, groups } = useSelector(({ localData }) => localData);
 
   useEffect(() => {
     dispatch(setGroup(slug));
-  }, [dispatch, slug]);
+  }, []);
 
   useEffect(() => {
-    if (groupLoaded && group.deputies.length === 0) {
+    const group = groups.find((group) => group.slug === slug);
+    if (isEmpty(group)) {
       history.push("/");
     }
-  }, [dispatch, history, group, groupLoaded]);
+  }, [history, groups]);
 
   return (
     <div>
       <Heading level={1} color="accent-1">
-        {group.infos.name}
+        {groupDetails.name}
       </Heading>
 
       <Box border="top" margin={{ top: "xlarge" }}>
@@ -38,9 +40,10 @@ export default function GroupPage() {
           columns="medium"
           rows="xsmall"
         >
-          {group.deputies.map((deputy, index) => (
-            <DeputyCard deputy={deputy} key={index} isInGroup={true} />
-          ))}
+          {!isEmpty(groupDetails) &&
+            groupDetails.deputies.map((deputy, index) => (
+              <DeputyCard deputy={deputy} key={index} />
+            ))}
         </ResponsiveGrid>
       </Box>
     </div>

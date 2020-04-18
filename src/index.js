@@ -2,12 +2,15 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
-
 import "./index.css";
 import App from "./app/layout/App";
 import * as serviceWorker from "./serviceWorker";
 import { configureStore } from "./app/store/configureStore";
 import ScrollToTop from "./app/utils/ScrollToTop";
+import { Grommet } from "grommet";
+import { grommet } from "grommet/themes";
+import { deepMerge } from "grommet/utils";
+import extend from "./app/theme/global";
 
 const store = configureStore();
 
@@ -15,7 +18,9 @@ ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
       <ScrollToTop>
-        <App />
+        <Grommet theme={deepMerge(grommet, extend)} themeMode="light" full>
+          <App />
+        </Grommet>
       </ScrollToTop>
     </BrowserRouter>
   </Provider>,

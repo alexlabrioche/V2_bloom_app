@@ -32,7 +32,7 @@ function findSlugType({ deputies, value }) {
 
 export default function Menu() {
   const { isMenuVisible } = useSelector(({ nav }) => nav);
-  const { all } = useSelector(({ deputies }) => deputies);
+  const { deputies } = useSelector(({ localData }) => localData);
   const { options, isOpenSearch, value } = useSelector(({ search }) => search);
   const dispatch = useDispatch();
   const history = useHistory();
@@ -40,7 +40,7 @@ export default function Menu() {
 
   const handleChange = ({ option }) => {
     dispatch(setSelectValue(option));
-    const { type, slug } = findSlugType({ deputies: all, value: option });
+    const { type, slug } = findSlugType({ deputies, value: option });
     history.push(`/${type}/${slug}`);
   };
 
@@ -79,7 +79,7 @@ export default function Menu() {
         dropHeight="medium"
         placeholder="Rechercher"
         emptySearchMessage="Désolé nous n'avons pas trouvé"
-        searchPlaceholder="Un Député ou un Groupe Européen"
+        searchPlaceholder="Un Député"
         value={value}
         options={searchOptions}
         open={isOpenSearch}

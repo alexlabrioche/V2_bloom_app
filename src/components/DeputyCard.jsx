@@ -10,12 +10,14 @@ export default function DeputyCard({ deputy, group, ...otherProps }) {
 
   return (
     <Box
-      elevation="medium"
+      elevation="large"
       animation="fadeIn"
       pad="xsmall"
       round="small"
       width={{ max: "22rem" }}
       {...otherProps}
+      hoverIndicator
+      onClick={() => {}}
     >
       <Link to={`/depute/${slug}`}>
         <Stack anchor="bottom-right">
@@ -33,6 +35,7 @@ export default function DeputyCard({ deputy, group, ...otherProps }) {
           <Heading
             textAlign="center"
             level={2}
+            size="small"
             color="accent-1"
             margin={{ vertical: "medium" }}
           >

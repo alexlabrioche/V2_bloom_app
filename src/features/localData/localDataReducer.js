@@ -3,9 +3,15 @@ import deputies from "../../app/data/deputies.json";
 import groups from "../../app/data/groups.json";
 import { SET_DEPUTY, SET_GROUP } from "./localDataConstants";
 
+const suggestions = [
+  ...deputies.map((deputy) => deputy.fullName),
+  ...groups.map((group) => group.name),
+].sort();
+
 const initialState = {
   deputies: deputies,
   groups: groups,
+  suggestions,
   deputyDetails: {},
   groupDetails: {},
 };

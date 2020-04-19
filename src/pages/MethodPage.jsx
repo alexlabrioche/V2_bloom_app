@@ -12,13 +12,12 @@ import {
   Paragraph,
 } from "grommet";
 
-const TextList = ({ children, ...otherProps }) => (
-  <Box margin={{ left: "medium" }} direction="row">
-    <Text margin={{ left: "-0.8rem" }} {...otherProps}>
-      -&nbsp;
-    </Text>
-    <Text {...otherProps}>{children}</Text>
-  </Box>
+const Ul = ({ children }) => <ul>{children}</ul>;
+
+const ListItem = ({ children, ...rest }) => (
+  <Text as="li" {...rest}>
+    {children}
+  </Text>
 );
 
 const Bold = ({ children, ...otherProps }) => (
@@ -30,11 +29,11 @@ const Bold = ({ children, ...otherProps }) => (
 export default function MethodPage() {
   return (
     <Box>
-      <Heading level={1}>Notre Méthodologie</Heading>
-      <Heading level={3}>1- LE CHOIX DES TEXTES ET DES AMENDEMENTS</Heading>
-      <Heading level={4} margin="none">
-        a- le choix des textes
+      <Heading level={1} size="large" color="accent-4">
+        Notre Méthodologie
       </Heading>
+      <Heading level={3}>1- LE CHOIX DES TEXTES ET DES AMENDEMENTS</Heading>
+      <Heading level={4}>a- le choix des textes</Heading>
       <Paragraph fill>
         Une sélection de textes en matière de pêche — adoptés par le Parlement
         européen — a été effectuée par l'équipe de BLOOM. Il ne s’agit ni d'une
@@ -47,22 +46,20 @@ export default function MethodPage() {
         (nous n'avons pas trouvé toutes les données nécessaires pour couvrir
         toute la législature).
       </Paragraph>
-      <Heading level={4} margin="none">
-        b- le choix des amendements
-      </Heading>
+      <Heading level={4}>b- le choix des amendements</Heading>
       <Paragraph fill>
         Un certain nombre d'amendements a ensuite été sélectionné au sein de
         chacun des textes choisis ci-dessus, selon deux critères cumulatifs :
-        <br />
-        <TextList>
+      </Paragraph>
+      <Ul>
+        <ListItem>
           Les amendements dont le détail des votes était disponible
-        </TextList>
-        <TextList>
+        </ListItem>
+        <ListItem>
           Les amendements pour lesquels les ONG ont émis des recommandations de
           vote
-        </TextList>
-      </Paragraph>
-
+        </ListItem>
+      </Ul>
       <Paragraph fill>
         Ces deux critères nous ont permis de nous assurer que les amendements
         choisis étaient décisifs, car seuls les amendements ayant une certaine
@@ -82,28 +79,28 @@ export default function MethodPage() {
       <Paragraph fill>
         <Bold>NB : </Bold>cette méthodologie n'a pas pu être appliquée in
         extenso sur trois textes :
-        <TextList>
+      </Paragraph>
+      <Ul>
+        <ListItem>
           Le Règlement Mesures Techniques : des recommandations existaient pour
           tous les amendements demandés en vote par appel nominal. Ainsi, nous
           avons sélectionné les amendements pour lesquels les ONG avaient
           particulièrement insisté en indiquant un double "+" (voter absolument
-          pour) ou un double "-" (voter contre absolument)
-        </TextList>
-        <TextList>
+          pour) ou un double "-" (voter contre absolument).
+        </ListItem>
+        <ListItem>
           Le Fonds européen pour les Affaires Maritimes et la Pêche : tout comme
           pour le Règlement Mesures Techniques, des recommandations existaient
           pour tous les amendements demandés en vote par appel nominal et
           beaucoup d'entre eux étaient "doublement marqués". Une sélection a
           donc été opérée par l'équipe de BLOOM pour ne prendre en compte que
           ceux qui nous semblaient les plus importants, parmi ceux déjà
-          doublement marqués ;
-        </TextList>
-        <TextList>
-          L'accord Japon-Union européenne : seuls les amendements 16 et 39 sur
-          le thon rouge et la chasse à la baleine ont été sélectionnés. Très peu
-          d'autres amendements traitaient des problématiques de pêche.
-        </TextList>
-      </Paragraph>
+          doublement marqués.`, `L'accord Japon-Union européenne : seuls les
+          amendements 16 et 39 sur le thon rouge et la chasse à la baleine ont
+          été sélectionnés. Très peu d'autres amendements traitaient des
+          problématiques de pêche.
+        </ListItem>
+      </Ul>
       <Paragraph fill>
         Enfin, seuls quelques "votes finaux", c'est-à-dire ceux portant sur le
         texte entier et dans sa version définitive ont été pris en
@@ -113,10 +110,7 @@ export default function MethodPage() {
         notre classement.
       </Paragraph>
       <Heading level={3}>2- LE CALCUL DE LA NOTE </Heading>
-      <Heading level={4} margin="none">
-        a- le barème
-      </Heading>
-      <br />
+      <Heading level={4}>a- le barème</Heading>
       <Table>
         <TableHeader>
           <TableRow>
@@ -143,7 +137,6 @@ export default function MethodPage() {
             <TableCell scope="row">
               <Bold>Vote destructeur : </Bold>Allant à l’encontre des
               recommandations des ONG.
-              <br />
             </TableCell>
             <TableCell align="right" scope="row">
               <Bold>0</Bold>
@@ -154,7 +147,6 @@ export default function MethodPage() {
               <Bold>Abstention : </Bold>Le député s'est abstenu. Il a donc voté
               mais ne s'est prononcé ni en faveur, ni en défaveur de l'objet du
               vote.
-              <br />
             </TableCell>
             <TableCell align="right" scope="row">
               <Bold>1</Bold>
@@ -168,7 +160,6 @@ export default function MethodPage() {
               obligatoire) qu'une abstention ("neutre" car n'influence pas
               l'adoption ou non d'un amendement/texte), mais meilleure qu'un
               vote destructeur.
-              <br />
             </TableCell>
             <TableCell align="right" scope="row">
               <Bold>0.5</Bold>
@@ -182,7 +173,6 @@ export default function MethodPage() {
               textes au sein de la même séance de vote. Il était donc présent
               mais pour une raison inconnue il n'a pas voté pour cet amendement
               en particulier. La note est la même que pour une absence.
-              <br />
             </TableCell>
             <TableCell align="right" scope="row">
               <Bold>0.5</Bold>
@@ -190,7 +180,6 @@ export default function MethodPage() {
           </TableRow>
         </TableBody>
       </Table>
-      <br />
       <Paragraph fill>
         <Bold>NB 1 : </Bold>La note la plus basse de ce barème est l’attribution
         de 0 point aux votes "destructeurs" (pour voir à quoi peuvent ressembler
@@ -214,7 +203,7 @@ export default function MethodPage() {
         la méthode de vote - très rapide - il est compréhensible que des erreurs
         surviennent.
       </Paragraph>
-      <Heading level={4} margin="none">
+      <Heading level={4}>
         b- la méthode de calcul : une moyenne pondérée
       </Heading>
       <Paragraph fill>
@@ -251,27 +240,27 @@ export default function MethodPage() {
         n'ayant donc pas une moyenne représentative car trop peu de votes ont pu
         être pris en compte.
       </Paragraph>
-      <Heading level={4} margin="none">
-        c- le code couleur
-      </Heading>
+      <Heading level={4}>c- le code couleur</Heading>
       <Paragraph fill>
-        Un code couleur a finalement été attribué à chaque député :{" "}
-        <TextList>
+        Un code couleur a finalement été attribué à chaque député :
+      </Paragraph>
+      <Ul>
+        <ListItem>
           <Bold color="protect">VERT</Bold> pour les députés ayant une note
           allant de 14/20 à 20/20 : + de 70% de leurs votes sont PROTECTEURS de
           l'océan.
-        </TextList>
-        <TextList>
+        </ListItem>
+        <ListItem>
           <Bold color="medium">ORANGE </Bold> pour les députés ayant une note
           allant de 10/20 à 14/20 : entre 50% et 70% de leurs votes sont
           PROTECTEURS de l'océan
-        </TextList>
-        <TextList>
+        </ListItem>
+        <ListItem>
           <Bold color="destruct">ROUGE </Bold> pour les députés ayant une note
           allant de 0/20 à 10/20 : - de 50% de leurs votes sont PROTECTEURS de
           l'océan
-        </TextList>
-      </Paragraph>
+        </ListItem>
+      </Ul>
       <Heading level={3}>3- LES SOURCES</Heading>
       <Paragraph fill>
         Tous les textes, amendements et votes, ont été collectés sur le site du{" "}

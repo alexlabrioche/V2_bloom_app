@@ -1,18 +1,18 @@
 export default {
   global: {
     colors: {
-      brand: "#3A84B2",
-      secondary: "#889AAA",
-      tertiary: "#B1BAC5",
-      "accent-1": "#5973e8",
-      "accent-2": "#FD6FFF",
-      "accent-3": "#81FCED",
+      brand: "#1D7DAD",
+      secondary: "#5AA0C3",
+      tertiary: "#315A8E",
+      "accent-1": "#2B74AF",
+      "accent-2": "#8DC168",
+      "accent-3": "#DD6666",
       "accent-4": "#FFCA58",
-      protect: "#42ad2e",
+      protect: "accent-2",
       absence: "#696E77",
       destruct: "#E52727",
       medium: "#EA8A35",
-      focus: "accent-1",
+      focus: "accent-2",
     },
     font: {
       family: "Roboto",

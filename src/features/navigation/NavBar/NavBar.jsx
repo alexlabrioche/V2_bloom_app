@@ -25,37 +25,32 @@ function NavBar(props) {
       as="header"
       direction="row"
       align="center"
-      background="transparent"
-      elevation="small"
+      background="white"
       justify="between"
-      pad={{ left: "medium", right: "small", vertical: "xsmall" }}
+      pad={{ horizontal: "xsmall", vertical: "small" }}
       style={{ zIndex: "1" }}
       {...props}
     >
       <Box direction="row" align="center">
-        <Button
+        {/* <Button
           icon={<Menu />}
           label={size !== "small" ? "Menu" : null}
           onClick={handleMenuIcon}
-        />
+        /> */}
         <AppLink to="/">
-          <Heading
-            level={3}
-            margin={{ left: "medium", vertical: "none" }}
-            color="brand"
-          >
+          <Heading level={3} margin="none">
             Bloom - Notation App
           </Heading>
         </AppLink>
       </Box>
-      <Button
+      {/* <Button
         icon={<Search />}
         plain
         reverse
         label={size !== "small" ? "Rechercher" : null}
         onClick={handleSearchIcon}
         margin={{ right: "medium" }}
-      />
+      /> */}
     </Box>
   );
 }

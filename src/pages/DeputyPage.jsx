@@ -15,15 +15,13 @@ export default function DeputyPage() {
   const { deputyDetails, deputies } = useSelector(({ localData }) => localData);
 
   useEffect(() => {
-    dispatch(setDeputy(slug));
-  }, []);
-
-  useEffect(() => {
     const deputy = deputies.find((deputy) => deputy.slug === slug);
     if (isEmpty(deputy)) {
       history.push("/");
+    } else {
+      dispatch(setDeputy(slug));
     }
-  }, [history, slug]);
+  }, [dispatch, history, slug]);
 
   const {
     fullName,

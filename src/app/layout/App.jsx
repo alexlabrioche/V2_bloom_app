@@ -1,14 +1,12 @@
 import React from "react";
 import { Box, ResponsiveContext } from "grommet";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 import AppRoutes from "../routes";
 import NavBar from "../../features/navigation/NavBar/NavBar";
-import Menu from "../../features/navigation/Menu/Menu";
-import { useLocation } from "react-router-dom";
-import { closeMenu } from "../../features/navigation/navActions";
+import Sidebar from "../../features/navigation/Sidebar/Sidebar";
 
-const pagePadding = (size, openMenu) => {
+const pagePadding = (size) => {
   switch (size) {
     case "small":
       return "medium";
@@ -17,33 +15,26 @@ const pagePadding = (size, openMenu) => {
     case "large":
       return "large";
     case "xlarge":
-      return "large";
+      return "xlarge";
     default:
       return "medium";
   }
 };
 
 function App() {
-  const { isMenuVisible } = useSelector(({ nav }) => nav);
-  const location = useLocation();
-  const dispatch = useDispatch();
   const size = React.useContext(ResponsiveContext);
 
-  React.useEffect(() => {
-    size === "small" && dispatch(closeMenu());
-  }, [location]);
-
   return (
-    <Box fill>
-      <NavBar />
-      <Box direction="row" flex>
-        <Menu />
+    <Box fill background="white" animation="fadeIn">
+      {/* <NavBar /> */}
+      <Box direction={size === "small" ? "column" : "row"} flex>
+        <Sidebar />
         <Box
           flex
           overflow="auto"
           pad={{
             vertical: "medium",
-            horizontal: pagePadding(size, isMenuVisible),
+            horizontal: pagePadding(size),
           }}
         >
           <AppRoutes />

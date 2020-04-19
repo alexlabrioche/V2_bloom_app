@@ -117,22 +117,29 @@ export default function Menu() {
     </Box>
   );
   return (
-    <ResponsiveContext.Consumer>
-      {(size) =>
-        !isMenuVisible || size !== "small" ? (
-          <Collapsible direction="horizontal" open={isMenuVisible}>
-            <Box flex width="medium" background="light-1">
-              <MenuContent />
-            </Box>
-          </Collapsible>
-        ) : (
-          <Layer>
-            <Box fill background="light-1">
-              <MenuContent isMobile={true} />
-            </Box>
-          </Layer>
-        )
-      }
-    </ResponsiveContext.Consumer>
+    // <ResponsiveContext.Consumer>
+    //   {(size) =>
+    //     !isMenuVisible || size !== "small" ? (
+    //       <Collapsible direction="horizontal" open={isMenuVisible}>
+    //         <Box flex width="medium" background="light-1">
+    //           <MenuContent />
+    //         </Box>
+    //       </Collapsible>
+    //     ) : (
+    //       <Layer>
+    //         <Box fill background="light-1">
+    //           <MenuContent isMobile={true} />
+    //         </Box>
+    //       </Layer>
+    //     )
+    //   }
+    // </ResponsiveContext.Consumer>
+    <Box
+      background="white"
+      width="small"
+      pad={{ horizontal: "medium", vertical: "large" }}
+    >
+      <Box background="red">Sidebar</Box>
+    </Box>
   );
 }

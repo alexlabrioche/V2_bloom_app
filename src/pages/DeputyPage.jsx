@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { setDeputy } from "../features/localData/localDataActions";
 import { isEmpty } from "lodash";
 import NotationPill from "../components/NotationPill";
-import defaultPic from "../app/assets/default-profile.png";
 import AppLink from "../components/Link";
 
 export default function DeputyPage() {
@@ -13,6 +12,7 @@ export default function DeputyPage() {
   const dispatch = useDispatch();
   const history = useHistory();
   const { deputyDetails, deputies } = useSelector(({ localData }) => localData);
+  const defaultPic = `${process.env.PUBLIC_URL}/assets/default-profile.png`;
 
   useEffect(() => {
     const deputy = deputies.find((deputy) => deputy.slug === slug);
@@ -21,7 +21,7 @@ export default function DeputyPage() {
     } else {
       dispatch(setDeputy(slug));
     }
-  }, [dispatch, history, slug]);
+  }, [dispatch, deputies, history, slug]);
 
   const {
     fullName,

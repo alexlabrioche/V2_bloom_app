@@ -43,7 +43,6 @@ const Search = ({ open, setOpen }) => {
     } else {
       nextSuggestions = allSuggestions;
     }
-    // don't use newer value if nothing matches it
     if (nextSuggestions.length > 0) {
       setValue(nextValue);
       setSuggestions(nextSuggestions);
@@ -75,10 +74,9 @@ const Search = ({ open, setOpen }) => {
         <TextInput
           ref={inputRef}
           dropHeight="medium"
-          placeholder="Un député ou un groupe"
+          placeholder="Rechercher un Député ou un Groupe Européen"
           value={value}
           plain
-          size="small"
           dropProps={{ elevation: "large" }}
           suggestions={suggestions}
           onChange={onChange}
@@ -95,16 +93,12 @@ const Search = ({ open, setOpen }) => {
   }
 
   return (
-    <Box
-      pad={{ horizontal: "medium", vertical: "small" }}
-      hoverIndicator="tertiary"
-      onClick={() => setOpen(true)}
-    >
+    <Box pad="small" hoverIndicator onClick={() => setOpen(true)}>
       <Button
-        pad="medium"
         gap="small"
         alignSelf="start"
         plain
+        reverse
         focusIndicator={false}
         icon={<SearchIcon color="accent-3" />}
         label={"Rechercher"}

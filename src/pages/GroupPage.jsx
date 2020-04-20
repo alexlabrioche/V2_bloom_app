@@ -17,14 +17,14 @@ export default function GroupPage() {
 
   useEffect(() => {
     dispatch(setGroup(slug));
-  }, []);
+  });
 
   useEffect(() => {
     const group = groups.find((group) => group.slug === slug);
     if (isEmpty(group)) {
       history.push("/");
     }
-  }, [history, groups]);
+  }, [history, groups, slug]);
 
   return (
     <div>

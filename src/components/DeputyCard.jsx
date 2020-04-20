@@ -1,5 +1,4 @@
 import React from "react";
-import defaultPic from "../app/assets/default-profile.png";
 import { Box, Image, Heading, Stack } from "grommet";
 
 import Link from "./Link";
@@ -7,10 +6,11 @@ import NotationPill from "./NotationPill";
 
 export default function DeputyCard({ deputy, group, ...otherProps }) {
   const { fullName, profilePic, slug } = deputy;
-
+  const defaultPic = `${process.env.PUBLIC_URL}/assets/default-profile.png`;
   return (
     <Box
-      elevation="large"
+      background="light-1"
+      elevation="medium"
       animation="fadeIn"
       pad="xsmall"
       round="small"

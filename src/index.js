@@ -16,13 +16,12 @@ const store = configureStore();
 
 ReactDOM.render(
   <Provider store={store}>
-    <BrowserRouter>
-      <ScrollToTop>
-        <Grommet theme={deepMerge(grommet, extend)} themeMode="light" full>
-          <App />
-        </Grommet>
-      </ScrollToTop>
-    </BrowserRouter>
+    <Grommet theme={deepMerge(grommet, extend)}>
+      <BrowserRouter>
+        <ScrollToTop />
+        <App />
+      </BrowserRouter>
+    </Grommet>
   </Provider>,
   document.getElementById("root")
 );

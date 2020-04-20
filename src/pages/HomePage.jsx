@@ -10,7 +10,7 @@ export default function HomePage() {
   const size = React.useContext(ResponsiveContext);
   return (
     <Box fill>
-      <Box as="header">
+      <Box>
         <Heading level={1} size="large" color="brand">
           Bloom Notation
         </Heading>

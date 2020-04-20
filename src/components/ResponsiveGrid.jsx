@@ -2,10 +2,10 @@ import React from "react";
 import { ResponsiveContext, Grid } from "grommet";
 
 const columns = {
-  small: ["auto"],
-  medium: ["auto", "auto"],
-  large: ["auto", "auto", "auto"],
-  xlarge: ["auto", "auto", "auto", "auto"],
+  small: ["auto", "auto"],
+  medium: ["auto", "auto", "auto"],
+  large: ["auto", "auto", "auto", "auto"],
+  xlarge: ["auto", "auto", "auto", "auto", "auto"],
 };
 
 const rows = {

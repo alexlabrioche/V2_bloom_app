@@ -9,6 +9,7 @@ export default {
       darker: "#373737",
       darkest: "#1F1D1E",
       background: "#fff",
+      white: "#fff",
       "accent-1": "#5973e8",
       "accent-2": "#E24874",
       "accent-3": "#FFA23F",

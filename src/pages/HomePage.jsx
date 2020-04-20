@@ -1,17 +1,17 @@
 import React from "react";
 import { Heading, Paragraph, Box, Button, ResponsiveContext } from "grommet";
-
-import Link from "../components/Link";
-import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+
+import Page from "../app/layout/Page";
 
 export default function HomePage() {
   const history = useHistory();
   const size = React.useContext(ResponsiveContext);
+  const isMobile = size === "small";
   return (
-    <Box fill>
+    <Page flex>
       <Box>
-        <Heading level={1} size="large" color="brand">
+        <Heading level={1} size="large" color="accent-1">
           Bloom Notation
         </Heading>
         <Paragraph fill margin={{ horizontal: size }}>
@@ -28,10 +28,14 @@ export default function HomePage() {
           tenetur rem.
         </Paragraph>
       </Box>
+      <Box flex="grow" />
       <Box
-        margin={{ top: "xlarge" }}
+        margin={{
+          top: isMobile ? "none" : "xlarge",
+          bottom: isMobile ? "medium" : "none",
+        }}
         direction="row"
-        justify={size === "small" ? "center" : "end"}
+        justify={isMobile ? "center" : "end"}
       >
         <Button
           plain
@@ -46,6 +50,6 @@ export default function HomePage() {
           onClick={() => history.push("/deputes")}
         />
       </Box>
-    </Box>
+    </Page>
   );
 }

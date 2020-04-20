@@ -5,7 +5,13 @@ import { Search as SearchIcon } from "grommet-icons";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 
-const Search = ({ open, setOpen }) => {
+const Search = ({
+  open,
+  setOpen,
+  label = "Rechercher",
+  placeholder = "Rechercher...",
+  ...rest
+}) => {
   const { suggestions: allSuggestions, groups, deputies } = useSelector(
     ({ localData }) => localData
   );
@@ -68,41 +74,66 @@ const Search = ({ open, setOpen }) => {
     goToPage(event.suggestion);
   };
 
-  if (open) {
-    return (
-      <Keyboard onEsc={() => setOpen(false)} onEnter={onEnter}>
-        <TextInput
-          ref={inputRef}
-          dropHeight="medium"
-          placeholder="Rechercher un Député ou un Groupe Européen"
-          value={value}
-          plain
-          dropProps={{ elevation: "large" }}
-          suggestions={suggestions}
-          onChange={onChange}
-          onSelect={onSelect}
-          onSuggestionsOpen={() => {
-            setOpen(true);
-          }}
-          onSuggestionsClose={() => {
-            setOpen(false);
-          }}
-        />
-      </Keyboard>
-    );
-  }
+  // if (open) {
+  //   return (
+  //     <Keyboard onEsc={() => setOpen(false)} onEnter={onEnter}>
+  //       <TextInput
+  //         ref={inputRef}
+  //         dropHeight="medium"
+  //         placeholder={placeholder}
+  //         value={value}
+  //         plain
+  //         dropProps={{ elevation: "large" }}
+  //         suggestions={suggestions}
+  //         onChange={onChange}
+  //         onSelect={onSelect}
+  //         onSuggestionsOpen={() => {
+  //           setOpen(true);
+  //         }}
+  //         onSuggestionsClose={() => {
+  //           setOpen(false);
+  //         }}
+  //       />
+  //     </Keyboard>
+  //   );
+  // }
 
   return (
-    <Box pad="small" hoverIndicator onClick={() => setOpen(true)}>
-      <Button
-        gap="small"
-        alignSelf="start"
-        plain
-        reverse
-        focusIndicator={false}
-        icon={<SearchIcon color="accent-3" />}
-        label={"Rechercher"}
-      />
+    <Box
+      pad={open ? "none" : "small"}
+      hoverIndicator
+      onClick={() => setOpen(true)}
+      {...rest}
+    >
+      {!open ? (
+        <Button
+          alignSelf="start"
+          plain
+          focusIndicator={false}
+          icon={<SearchIcon color="accent-3" />}
+          label={label}
+        />
+      ) : (
+        <Keyboard onEsc={() => setOpen(false)} onEnter={onEnter}>
+          <TextInput
+            ref={inputRef}
+            dropHeight="medium"
+            placeholder={placeholder}
+            value={value}
+            plain
+            dropProps={{ elevation: "large" }}
+            suggestions={suggestions}
+            onChange={onChange}
+            onSelect={onSelect}
+            onSuggestionsOpen={() => {
+              setOpen(true);
+            }}
+            onSuggestionsClose={() => {
+              setOpen(false);
+            }}
+          />
+        </Keyboard>
+      )}
     </Box>
   );
 };

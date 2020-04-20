@@ -1,8 +1,9 @@
 import React from "react";
 import { Box, Anchor, Button, ResponsiveContext, Image } from "grommet";
-import { List, Catalog, Home } from "grommet-icons";
+import { UserExpert, Catalog, Home } from "grommet-icons";
 import { useHistory, useLocation } from "react-router-dom";
 import AppLink from "../../../components/Link";
+import AppButton from "../../../components/AppButon";
 
 const AppbarButtonContent = [
   {
@@ -12,14 +13,14 @@ const AppbarButtonContent = [
     pageUri: "/",
   },
   {
-    Icon: List,
-    color: "accent-2",
+    Icon: UserExpert,
+    color: "accent-4",
     label: "Les Députés",
     pageUri: "/deputes",
   },
   {
     Icon: Catalog,
-    color: "accent-4",
+    color: "accent-3",
     label: "Méthodologie",
     pageUri: "/methode",
   },
@@ -37,9 +38,8 @@ const AppbarButton = ({
     pad={{ horizontal: "medium", vertical: "small" }}
     hoverIndicator="brand"
     onClick={onClick}
-    // flex="grow"
     focusIndicator={false}
-    background={isHighlighted ? "light-2" : "transparent"}
+    background={isHighlighted ? "white" : "transparent"}
   >
     <Button
       pad="medium"
@@ -57,20 +57,19 @@ const AppbarButton = ({
 
 export default function Appbar({ ...rest }) {
   const size = React.useContext(ResponsiveContext);
+  const isMobile = size === "small";
   const history = useHistory();
   const { pathname } = useLocation();
-  const isMobile = size === "small";
 
   const goToPage = (uri) => {
     history.push(uri);
   };
 
   return (
-    <>
-      <Box
-        width={isMobile ? "full" : "small"}
-        height={isMobile ? "xsmall" : "100%"}
-      />
+    <Box
+      width={isMobile ? "full" : "small"}
+      height={isMobile ? "xsmall" : "100%"}
+    >
       <Box
         width={isMobile ? "full" : "small"}
         height={isMobile ? "xsmall" : "100%"}
@@ -82,7 +81,10 @@ export default function Appbar({ ...rest }) {
       >
         <AppLink to="/">
           <Box
-            pad={{ horizontal: "small", vertical: isMobile ? "small" : "none" }}
+            pad={{
+              horizontal: "small",
+              vertical: isMobile ? "small" : "none",
+            }}
             width="small"
             height={isMobile ? "xsmall" : "small"}
           >
@@ -94,7 +96,7 @@ export default function Appbar({ ...rest }) {
         </AppLink>
         <Box direction="column" justify={isMobile ? "between" : "end"}>
           {AppbarButtonContent.map(({ Icon, label, color, pageUri }, index) => (
-            <AppbarButton
+            <AppButton
               icon={<Icon color={color} />}
               label={label}
               isHighlighted={pathname === pageUri}
@@ -118,6 +120,6 @@ export default function Appbar({ ...rest }) {
           </>
         )}
       </Box>
-    </>
+    </Box>
   );
 }

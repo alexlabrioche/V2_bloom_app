@@ -11,6 +11,7 @@ import {
   Box,
   Paragraph,
 } from "grommet";
+import Page from "../app/layout/Page";
 
 const Ul = ({ children }) => <ul>{children}</ul>;
 
@@ -28,9 +29,9 @@ const Bold = ({ children, ...otherProps }) => (
 
 export default function MethodPage() {
   return (
-    <div>
+    <Page>
       <Box margin={{ bottom: "large" }}>
-        <Heading level={1} size="large" color="accent-4">
+        <Heading level={1} size="large" color="accent-3">
           Notre Méthodologie
         </Heading>
         <Heading level={3}>1- LE CHOIX DES TEXTES ET DES AMENDEMENTS</Heading>
@@ -284,6 +285,6 @@ export default function MethodPage() {
           suivante : contact@bloomassociation.org
         </Paragraph>
       </Box>
-    </div>
+    </Page>
   );
 }

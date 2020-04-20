@@ -1,11 +1,13 @@
 import React, { useEffect } from "react";
-import { Box, Heading, Text, Stack, Image, Paragraph } from "grommet";
+import { Box, Heading, Text, Stack, Image, Paragraph, Button } from "grommet";
 import { useParams, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setDeputy } from "../features/localData/localDataActions";
 import { isEmpty } from "lodash";
-import NotationPill from "../components/NotationPill";
+import { Previous } from "grommet-icons";
 import AppLink from "../components/Link";
+import Page from "../app/layout/Page";
+import WaveGrade from "../components/WaveGrade";
 
 export default function DeputyPage() {
   let { slug } = useParams();
@@ -37,9 +39,20 @@ export default function DeputyPage() {
   } = deputyDetails;
 
   return (
-    <Box>
+    <Page>
+      <Box flex direction="row" align="start" pad={{ vertical: "medium" }}>
+        <Button
+          onClick={() => history.goBack()}
+          icon={<Previous color="accent-1" />}
+          label="Retour"
+          plain
+        />
+      </Box>
+      <WaveGrade grade={12} variant="protect" />
+      <WaveGrade grade={12} variant="medium" />
+      <WaveGrade grade={12} variant="destruct" />
       <Stack anchor="top-right">
-        <Box as="header" flex direction="row" align="start">
+        <Box flex direction="row" align="start">
           <Box
             height="small"
             width="small"
@@ -61,7 +74,6 @@ export default function DeputyPage() {
             </Paragraph>
           </Box>
         </Box>
-        <NotationPill grade={15} />
       </Stack>
 
       <Text>Parti : {party}</Text>
@@ -69,6 +81,6 @@ export default function DeputyPage() {
       <Text>{email}</Text>
       <Text>{facebook}</Text>
       <Text>{website}</Text>
-    </Box>
+    </Page>
   );
 }

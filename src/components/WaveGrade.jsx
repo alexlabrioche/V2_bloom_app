@@ -1,6 +1,6 @@
 import React from "react";
 import Wave from "react-wavify";
-import { Box, Stack, Heading } from "grommet";
+import { Box, Stack, Heading, ThemeContext } from "grommet";
 
 const variants = {
   protect: {
@@ -18,10 +18,17 @@ const variants = {
     amplitude: 20,
     color: "destruct",
   },
+  absence: {
+    height: 200,
+    amplitude: 20,
+    color: "absence",
+  },
 };
 
 export default function WaveGrade({ grade, variant = "protect" }) {
   const { height, amplitude, color } = variants[variant];
+  const { global } = React.useContext(ThemeContext);
+
   return (
     <Box
       height="small"
@@ -35,7 +42,7 @@ export default function WaveGrade({ grade, variant = "protect" }) {
       <Stack anchor="center" fill>
         <Box fill>
           <Wave
-            fill="#4A6881"
+            fill={global.colors.brand}
             options={{
               height,
               amplitude,

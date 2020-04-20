@@ -1,12 +1,11 @@
 import React from "react";
 import { Box, Image, Heading, Stack, Text } from "grommet";
-
-import Link from "./Link";
 import { useHistory } from "react-router-dom";
+import getColorFromGrade from "../app/utils/getColorFromGrade";
 
 export default function DeputyCard({ deputy, group, ...rest }) {
   const history = useHistory();
-  const { fullName, profilePic, slug } = deputy;
+  const { fullName, profilePic, slug, grade } = deputy;
   const defaultPic = `${process.env.PUBLIC_URL}/assets/default-profile.png`;
 
   return (
@@ -20,32 +19,30 @@ export default function DeputyCard({ deputy, group, ...rest }) {
       onClick={() => history.push(`/depute/${slug}`)}
       {...rest}
     >
-      <Link to={`/depute/${slug}`}>
-        <Stack anchor="bottom-right">
-          <Box height="12rem" margin="xsmall" round="xsmall" overflow="hidden">
-            <Image fit="cover" fill src={profilePic || defaultPic} />
-          </Box>
-          <Box
-            flex
-            align="center"
-            justify="center"
-            height="xsmall"
-            width="xsmall"
-            background="protect"
-            round="full"
-            responsive={false}
-            style={{ transform: "translate(0, 20px)" }}
+      <Stack anchor="bottom-right">
+        <Box height="12rem" margin="xsmall" round="xsmall" overflow="hidden">
+          <Image fit="cover" fill src={profilePic || defaultPic} />
+        </Box>
+        <Box
+          flex
+          align="center"
+          justify="center"
+          height="xsmall"
+          width="xsmall"
+          background={getColorFromGrade(grade)}
+          round="full"
+          responsive={false}
+          style={{ transform: "translate(0, 20px)" }}
+        >
+          <Heading
+            style={{ transform: "rotate(-10deg)" }}
+            level={3}
+            color="white"
           >
-            <Heading
-              style={{ transform: "rotate(-10deg)" }}
-              level={3}
-              color="white"
-            >
-              12/20
-            </Heading>
-          </Box>
-        </Stack>
-      </Link>
+            {grade}/20
+          </Heading>
+        </Box>
+      </Stack>
       <Box pad="xsmall" flex direction="column" justify="between">
         <Heading
           textAlign="center"

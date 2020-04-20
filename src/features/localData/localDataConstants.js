@@ -1,2 +1,4 @@
 export const SET_DEPUTY = "SET_DEPUTY";
 export const SET_GROUP = "SET_GROUP";
+export const SORT_BY_GRADE = "SORT_BY_GRADE";
+export const SORT_ALPHABETICALLY = "SORT_ALPHABETICALLY";

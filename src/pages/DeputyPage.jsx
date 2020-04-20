@@ -2,12 +2,14 @@ import React, { useEffect } from "react";
 import { Box, Heading, Text, Stack, Image, Paragraph, Button } from "grommet";
 import { useParams, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setDeputy } from "../features/localData/localDataActions";
 import { isEmpty } from "lodash";
 import { Previous } from "grommet-icons";
+
 import AppLink from "../components/Link";
 import Page from "../app/layout/Page";
 import WaveGrade from "../components/WaveGrade";
+import { setDeputy } from "../features/localData/localDataActions";
+import getColorFromGrade from "../app/utils/getColorFromGrade";
 
 export default function DeputyPage() {
   let { slug } = useParams();
@@ -36,6 +38,7 @@ export default function DeputyPage() {
     profilePic,
     groupName,
     groupSlug,
+    grade,
   } = deputyDetails;
 
   return (
@@ -48,9 +51,7 @@ export default function DeputyPage() {
           plain
         />
       </Box>
-      <WaveGrade grade={12} variant="protect" />
-      <WaveGrade grade={12} variant="medium" />
-      <WaveGrade grade={12} variant="destruct" />
+      <WaveGrade grade={grade} variant={getColorFromGrade(grade)} />
       <Stack anchor="top-right">
         <Box flex direction="row" align="start">
           <Box

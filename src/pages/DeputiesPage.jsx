@@ -1,27 +1,31 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { Box } from "grommet";
-
-import SortDeputies from "../features/sort/Sort";
 import DeputyCard from "../components/DeputyCard";
 import ResponsiveGrid from "../components/ResponsiveGrid";
+import Page from "../app/layout/Page";
 
 export default function DeputiesPage() {
-  const { deputies, groups } = useSelector(({ localData }) => localData);
+  const { deputies, groups, rangeValues } = useSelector(
+    ({ localData }) => localData
+  );
 
   return (
-    <>
-      <SortDeputies margin={{ bottom: "large" }} />
+    <Page background="transparent" margin="none" elevation="none">
       <ResponsiveGrid gap="small" columns="small" rows="small">
-        {deputies.map((deputy) => (
-          <DeputyCard
-            deputy={deputy}
-            group={groups.find(({ id }) => id === deputy.groupId)}
-            key={deputy.id}
-            full
-          />
-        ))}
+        {deputies
+          .filter(
+            ({ grade }) =>
+              grade >= rangeValues.minGrade && grade <= rangeValues.maxGrade
+          )
+          .map((deputy) => (
+            <DeputyCard
+              deputy={deputy}
+              group={groups.find(({ id }) => id === deputy.groupId)}
+              key={deputy.id}
+              full
+            />
+          ))}
       </ResponsiveGrid>
-    </>
+    </Page>
   );
 }

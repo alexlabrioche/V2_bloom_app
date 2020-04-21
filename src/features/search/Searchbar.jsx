@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect, createRef } from "react";
 import PropTypes from "prop-types";
 import { Box, Button, Keyboard, TextInput } from "grommet";
 import { Search as SearchIcon } from "grommet-icons";
@@ -12,29 +12,25 @@ const Search = ({
   placeholder = "Rechercher...",
   ...rest
 }) => {
-  const { suggestions: allSuggestions, groups, deputies } = useSelector(
+  const { suggestions: allSuggestions, deputies } = useSelector(
     ({ localData }) => localData
   );
 
-  const [value, setValue] = React.useState("");
-  const [suggestions, setSuggestions] = React.useState(allSuggestions);
-  const inputRef = React.createRef();
+  const [value, setValue] = useState("");
+  const [suggestions, setSuggestions] = useState(allSuggestions);
+  const inputRef = createRef();
   const history = useHistory();
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (inputRef.current && open) {
       inputRef.current.focus();
     }
-  }, [open]);
+  }, [inputRef, open]);
 
   const goToPage = (name) => {
     const deputy = deputies.find((deputy) => deputy.fullName === name);
     if (deputy) {
       history.push(`/depute/${deputy.slug}`);
-    }
-    const group = groups.find((group) => group.name === name);
-    if (group) {
-      history.push(`/groupe/${group.slug}`);
     }
   };
 
@@ -74,35 +70,12 @@ const Search = ({
     goToPage(event.suggestion);
   };
 
-  // if (open) {
-  //   return (
-  //     <Keyboard onEsc={() => setOpen(false)} onEnter={onEnter}>
-  //       <TextInput
-  //         ref={inputRef}
-  //         dropHeight="medium"
-  //         placeholder={placeholder}
-  //         value={value}
-  //         plain
-  //         dropProps={{ elevation: "large" }}
-  //         suggestions={suggestions}
-  //         onChange={onChange}
-  //         onSelect={onSelect}
-  //         onSuggestionsOpen={() => {
-  //           setOpen(true);
-  //         }}
-  //         onSuggestionsClose={() => {
-  //           setOpen(false);
-  //         }}
-  //       />
-  //     </Keyboard>
-  //   );
-  // }
-
   return (
     <Box
       pad={open ? "none" : "small"}
       hoverIndicator
       onClick={() => setOpen(true)}
+      justify="center"
       {...rest}
     >
       {!open ? (

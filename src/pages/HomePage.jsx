@@ -11,7 +11,7 @@ export default function HomePage() {
   return (
     <Page flex>
       <Box>
-        <Heading level={1} size="large" color="accent-1">
+        <Heading level={1} size="large" textAlign="center" color="brand">
           Bloom Notation
         </Heading>
         <Paragraph fill margin={{ horizontal: size }}>
@@ -28,7 +28,6 @@ export default function HomePage() {
           tenetur rem.
         </Paragraph>
       </Box>
-      <Box flex="grow" />
       <Box
         margin={{
           top: isMobile ? "none" : "xlarge",
@@ -38,14 +37,14 @@ export default function HomePage() {
         justify={isMobile ? "center" : "end"}
       >
         <Button
-          plain
           onClick={() => history.push("/methode")}
+          color="accent-3"
+          label="En savoir plus sur la méthode"
           margin={{ right: "small" }}
-        >
-          <strong>En savoir plus sur la méthode</strong>
-        </Button>
+        />
         <Button
           label="Voir les Députés"
+          color="accent-1"
           primary
           onClick={() => history.push("/deputes")}
         />

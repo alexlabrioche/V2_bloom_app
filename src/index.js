@@ -16,7 +16,7 @@ const store = configureStore();
 
 ReactDOM.render(
   <Provider store={store}>
-    <Grommet theme={deepMerge(grommet, extend)}>
+    <Grommet theme={deepMerge(grommet, extend)} full>
       <BrowserRouter>
         <ScrollToTop />
         <App />

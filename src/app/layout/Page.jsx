@@ -6,8 +6,10 @@ export default function Page({ children, ...rest }) {
     <Box
       background="white"
       pad="medium"
+      margin="medium"
       round="xsmall"
       elevation="small"
+      overflow="scroll"
       {...rest}
     >
       {children}

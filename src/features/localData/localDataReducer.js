@@ -6,6 +6,7 @@ import {
   SET_GROUP,
   SORT_BY_GRADE,
   SORT_ALPHABETICALLY,
+  FILTER_DEPUTIES_BY_GRADE,
 } from "./localDataConstants";
 
 function compareValues(key, order = "asc") {
@@ -31,29 +32,51 @@ const mockGrades = (deputiesArr) => {
     grade: Math.floor(Math.random() * (20 - 6) + 6),
   }));
 };
-function generateGradesArray({ min, max }) {
-  let ret = [max];
-  let tempVal = max;
+
+function getGradesAndValues({ minGrade, maxGrade }) {
+  const isOdd = (n) => n % 2 !== 0;
+  let grade = isOdd(minGrade) ? minGrade - 1 : minGrade;
+  let value = 0;
+  let ret = [{ value, grade }];
   do {
-    tempVal -= 2;
-    ret.unshift(tempVal);
-  } while (tempVal > min);
+    value += 1;
+    grade += 2;
+    ret.push({ value, grade });
+  } while (grade < 20);
   return ret;
 }
 
+const deputiesWithGrades = mockGrades(deputies);
+
+const suggestions = deputies
+  .sort(compareValues("lastName", "asc"))
+  .map((deputy) => deputy.fullName);
+
+const minMaxGrade = (deputies) => ({
+  minGrade: Math.min(...deputies.map((d) => d.grade)),
+  maxGrade: Math.max(...deputies.map((d) => d.grade)),
+});
+
+const initScale = getGradesAndValues(minMaxGrade(deputiesWithGrades));
+
+const initValues = [
+  initScale[0].value,
+  initScale[initScale.length - 1].value + 1,
+];
+
 const initialState = {
-  deputies: mockGrades(deputies),
+  deputies: deputiesWithGrades,
   groups: groups,
   alphaOrder: "asc",
-  suggestions: deputies
-    .sort(compareValues("lastName", "asc"))
-    .map((deputy) => deputy.fullName),
+  suggestions,
   deputyDetails: {},
   groupDetails: {},
-  gradesValues: generateGradesArray({
-    min: 6,
-    max: 20,
-  }),
+  rangeValues: {
+    scale: initScale,
+    values: initValues,
+    minGrade: initScale[0].grade,
+    maxGrade: initScale[initScale.length - 1].grade,
+  },
 };
 
 const setDeputy = (state, payload) => {
@@ -96,9 +119,28 @@ const sortAlphabetically = (state) => {
   };
 };
 
+const getGradeFromValue = (scale, value) => {
+  return scale.find((s) => s.value === value).grade;
+};
+
+const filterDeputies = (state, payload) => {
+  const min = payload.values[0];
+  const max = payload.values[1] - 1;
+  return {
+    ...state,
+    rangeValues: {
+      ...state.rangeValues,
+      values: payload.values,
+      minGrade: getGradeFromValue(state.rangeValues.scale, min),
+      maxGrade: getGradeFromValue(state.rangeValues.scale, max),
+    },
+  };
+};
+
 export default createReducer(initialState, {
   [SET_DEPUTY]: setDeputy,
   [SET_GROUP]: setGroup,
   [SORT_BY_GRADE]: sortByGrade,
   [SORT_ALPHABETICALLY]: sortAlphabetically,
+  [FILTER_DEPUTIES_BY_GRADE]: filterDeputies,
 });

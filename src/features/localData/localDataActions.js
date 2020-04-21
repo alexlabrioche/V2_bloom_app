@@ -3,6 +3,7 @@ import {
   SET_GROUP,
   SORT_BY_GRADE,
   SORT_ALPHABETICALLY,
+  FILTER_DEPUTIES_BY_GRADE,
 } from "./localDataConstants";
 
 export const setDeputy = (slug) => {
@@ -29,5 +30,12 @@ export const sortByGrade = (order) => {
 export const sortAlphabetically = () => {
   return {
     type: SORT_ALPHABETICALLY,
+  };
+};
+
+export const filterDeputiesByGrade = (values) => {
+  return {
+    type: FILTER_DEPUTIES_BY_GRADE,
+    payload: { values },
   };
 };

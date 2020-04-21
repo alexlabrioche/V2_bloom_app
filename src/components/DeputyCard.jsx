@@ -10,12 +10,12 @@ export default function DeputyCard({ deputy, group, ...rest }) {
 
   return (
     <Box
-      background="light-2"
+      background="white"
       elevation="small"
       pad="xsmall"
       round="xsmall"
       width={{ max: "20rem" }}
-      hoverIndicator="white"
+      hoverIndicator
       onClick={() => history.push(`/depute/${slug}`)}
       {...rest}
     >

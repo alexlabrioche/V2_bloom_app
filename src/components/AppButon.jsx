@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Button, ResponsiveContext } from "grommet";
+import { Box, Button } from "grommet";
 
 export default function AppButon({
   icon,
@@ -8,26 +8,25 @@ export default function AppButon({
   isHighlighted,
   ...rest
 }) {
-  const size = React.useContext(ResponsiveContext);
-  const isMobile = size === "small";
   return (
     <Box
       pad={{ horizontal: "medium", vertical: "small" }}
-      hoverIndicator="brand"
+      hoverIndicator="light-3"
       onClick={onClick}
       focusIndicator={false}
-      background={isHighlighted ? "light-2" : "transparent"}
+      background={isHighlighted ? "brand" : "transparent"}
+      flex
+      alignContent="center"
+      justify="center"
+      {...rest}
     >
       <Button
-        pad="medium"
         gap="small"
-        alignSelf={isMobile ? "end" : "start"}
+        alignSelf="start"
         plain
-        reverse={isMobile}
         focusIndicator={false}
         icon={icon}
         label={label}
-        {...rest}
       />
     </Box>
   );

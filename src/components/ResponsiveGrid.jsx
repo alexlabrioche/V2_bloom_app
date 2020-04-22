@@ -1,14 +1,14 @@
 import React from "react";
 import { ResponsiveContext, Grid } from "grommet";
 
-const columns = {
+const defaultColumns = {
   small: ["auto", "auto"],
-  medium: ["auto", "auto", "auto"],
-  large: ["auto", "auto", "auto", "auto"],
-  xlarge: ["auto", "auto", "auto", "auto", "auto"],
+  medium: ["auto", "auto"],
+  large: ["auto", "auto", "auto"],
+  xlarge: ["auto", "auto", "auto", "auto"],
 };
 
-const rows = {
+const defaultRows = {
   small: ["none", "none", "none"],
   medium: ["none", "none"],
   large: ["none"],
@@ -17,8 +17,8 @@ const rows = {
 
 export default function Responsive({
   children,
-  overrideColumns,
-  overrideRows,
+  columns = defaultColumns,
+  rows = defaultRows,
   areas,
   ...props
 }) {

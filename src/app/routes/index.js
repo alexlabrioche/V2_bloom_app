@@ -3,7 +3,7 @@ import { Switch, Route } from "react-router-dom";
 
 import HomePage from "../../pages/HomePage";
 import MethodPage from "../../pages/MethodPage";
-import GroupPage from "../../pages/GroupPage";
+import GroupsPage from "../../pages/GroupsPage";
 import DeputiesPage from "../../pages/DeputiesPage";
 import DeputyPage from "../../pages/DeputyPage";
 import Admin from "../../features/admin/Admin";
@@ -20,8 +20,8 @@ export default function AppRoutes() {
       <Route path="/deputes">
         <DeputiesPage />
       </Route>
-      <Route path="/groupe/:slug">
-        <GroupPage />
+      <Route path="/groupes">
+        <GroupsPage />
       </Route>
       <Route path="/admin">
         <Admin />

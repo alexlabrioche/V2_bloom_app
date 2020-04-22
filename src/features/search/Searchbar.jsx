@@ -1,20 +1,20 @@
 import React, { useState, useEffect, createRef } from "react";
-import PropTypes from "prop-types";
 import { Box, Button, Keyboard, TextInput } from "grommet";
 import { Search as SearchIcon } from "grommet-icons";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
+import { setSearchbar } from "../navigation/navActions";
 
 const Search = ({
-  open,
-  setOpen,
   label = "Rechercher",
   placeholder = "Rechercher...",
   ...rest
 }) => {
   const { suggestions: allSuggestions, deputies } = useSelector(
-    ({ localData }) => localData
+    ({ deputies }) => deputies
   );
+  const { showSearchbar: open } = useSelector(({ nav }) => nav);
+  const dispatch = useDispatch();
 
   const [value, setValue] = useState("");
   const [suggestions, setSuggestions] = useState(allSuggestions);
@@ -74,7 +74,7 @@ const Search = ({
     <Box
       pad={open ? "none" : "small"}
       hoverIndicator
-      onClick={() => setOpen(true)}
+      onClick={() => dispatch(setSearchbar(true))}
       justify="center"
       {...rest}
     >
@@ -87,7 +87,7 @@ const Search = ({
           label={label}
         />
       ) : (
-        <Keyboard onEsc={() => setOpen(false)} onEnter={onEnter}>
+        <Keyboard onEsc={() => dispatch(setSearchbar(false))} onEnter={onEnter}>
           <TextInput
             ref={inputRef}
             dropHeight="medium"
@@ -99,21 +99,16 @@ const Search = ({
             onChange={onChange}
             onSelect={onSelect}
             onSuggestionsOpen={() => {
-              setOpen(true);
+              dispatch(setSearchbar(true));
             }}
             onSuggestionsClose={() => {
-              setOpen(false);
+              dispatch(setSearchbar(false));
             }}
           />
         </Keyboard>
       )}
     </Box>
   );
-};
-
-Search.propTypes = {
-  open: PropTypes.bool.isRequired,
-  setOpen: PropTypes.func.isRequired,
 };
 
 export default Search;

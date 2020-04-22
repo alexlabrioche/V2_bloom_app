@@ -54,15 +54,7 @@ export default function DeputyCard({ deputy, group, ...rest }) {
           {fullName}
         </Heading>
         <Box flex="grow" />
-        <Text
-          color="dark-4"
-          size="small"
-          style={{
-            overflow: "hidden",
-            whiteSpace: "nowrap",
-            textOverflow: "ellipsis",
-          }}
-        >
+        <Text color="dark-4" size="small" truncate>
           {group.name}
         </Text>
       </Box>

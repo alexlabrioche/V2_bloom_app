@@ -1,84 +1,96 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Box, Text, Stack, RangeSelector } from "grommet";
-import { Ascend, Descend, Sort } from "grommet-icons";
+import { Box, ResponsiveContext } from "grommet";
+import {
+  Ascend,
+  Descend,
+  Sort,
+  SubtractCircle,
+  AddCircle,
+} from "grommet-icons";
 
 import Searchbar from "../../search/Searchbar";
 import AppButton from "../../../components/AppButon";
 import {
   sortByGrade,
   sortAlphabetically,
-  filterDeputiesByGrade,
-} from "../../localData/localDataActions";
+  setExpandedCard,
+} from "../../deputies/deputiesActions";
 
 export default function Sortbar({ ...rest }) {
-  const { alphaOrder, rangeValues } = useSelector(({ localData }) => localData);
-  const [showSearchbar, setShowSearchbar] = React.useState(false);
+  const { alphaOrder, gradeOrder, expandedCard } = useSelector(
+    ({ deputies }) => deputies
+  );
   const dispatch = useDispatch();
+  const size = React.useContext(ResponsiveContext);
+  const isMobile = size === "small";
 
   return (
-    <Box
-      style={{ zIndex: 2 }}
-      elevation="medium"
-      pad="xsmall"
-      width="full"
-      {...rest}
-    >
-      <Searchbar
-        open={showSearchbar}
-        setOpen={setShowSearchbar}
-        height="xxsmall"
-        label="Rechercher un Député"
-        placeholder="Rechercher..."
-      />
-      <Box border="top" margin="xsmall" />
-      <Box direction="row" width="100%">
-        <AppButton
-          icon={<Ascend color="protect" />}
-          label="Meilleures notes"
-          onClick={() => dispatch(sortByGrade("desc"))}
+    <Box style={{ zIndex: 20 }} width="auto" {...rest}>
+      <Box
+        elevation="xlarge"
+        margin={{ top: "small", horizontal: "small" }}
+        background="white"
+        round="xxsmall"
+      >
+        <Searchbar
+          height="xxsmall"
+          label="Rechercher un Député"
+          placeholder="Rechercher..."
         />
-        <AppButton
-          icon={<Descend color="destruct" />}
-          label="Pires notes"
-          onClick={() => dispatch(sortByGrade("asc"))}
-        />
-        <AppButton
-          icon={<Sort color="accent-3" />}
-          label={alphaOrder === "asc" ? "Z-A" : "A-Z"}
-          onClick={() => dispatch(sortAlphabetically())}
-        />
-        <Box flex="grow" />
-        <Stack flex alignSelf="center" margin="xsmall">
-          <Box height="100%" direction="row" justify="between">
-            {rangeValues.scale.map(({ grade }) => (
-              <Box
-                border={false}
-                key={grade}
-                pad="small"
-                flex
-                justify="center"
-                align="center"
-              >
-                <Text style={{ fontFamily: "monospace" }}>
-                  <strong>{grade}</strong>
-                </Text>
-              </Box>
-            ))}
-          </Box>
+        <Box
+          border={{
+            color: "light-4",
+            side: "top",
+          }}
+          flex
+          direction="row"
+          justify="between"
+        >
+          <Box flex direction="row">
+            <AppButton
+              icon={
+                gradeOrder === "asc" ? (
+                  <Descend color="protect" />
+                ) : (
+                  <Ascend color="destruct" />
+                )
+              }
+              label={
+                isMobile
+                  ? false
+                  : gradeOrder === "asc"
+                  ? "Meilleures notes"
+                  : "Pires notes"
+              }
+              onClick={() => dispatch(sortByGrade())}
+            />
 
-          <RangeSelector
-            direction="horizontal"
-            invert={false}
-            min={rangeValues.scale[0].value}
-            max={rangeValues.scale.length}
-            round="xsmall"
-            color="accent-1"
-            opacity="weak"
-            values={rangeValues.values}
-            onChange={(newValues) => dispatch(filterDeputiesByGrade(newValues))}
-          />
-        </Stack>
+            <AppButton
+              icon={<Sort color="accent-3" />}
+              label={isMobile ? false : alphaOrder === "asc" ? "Z-A" : "A-Z"}
+              onClick={() => dispatch(sortAlphabetically())}
+            />
+            <AppButton
+              icon={
+                expandedCard ? (
+                  <SubtractCircle color="accent-1" />
+                ) : (
+                  <AddCircle color="accent-1" />
+                )
+              }
+              label={
+                isMobile
+                  ? false
+                  : expandedCard
+                  ? "Réduire les cartes"
+                  : "Agrandir les cartes"
+              }
+              onClick={() => dispatch(setExpandedCard(!expandedCard))}
+            />
+          </Box>
+          <Box flex="grow" />
+        </Box>
       </Box>
     </Box>
   );

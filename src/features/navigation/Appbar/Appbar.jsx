@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Image } from "grommet";
-import { UserExpert, Catalog, Home } from "grommet-icons";
+import { UserExpert, Catalog, Home, Group } from "grommet-icons";
 import { useHistory, useLocation } from "react-router-dom";
 
 import AppButton from "../../../components/AppButon";
@@ -14,14 +14,20 @@ const AppbarButtonContent = [
     pageUri: "/",
   },
   {
+    Icon: Group,
+    color: "accent-1",
+    label: "Les Groupes",
+    pageUri: "/groupes",
+  },
+  {
     Icon: UserExpert,
-    color: "accent-4",
+    color: "accent-1",
     label: "Les Députés",
     pageUri: "/deputes",
   },
   {
     Icon: Catalog,
-    color: "accent-3",
+    color: "accent-1",
     label: "Méthodologie",
     pageUri: "/methode",
   },
@@ -45,7 +51,7 @@ export default function Appbar({ isMobile = false, ...rest }) {
         flex
         width={isMobile ? "full" : "small"}
         height={isMobile ? "xxsmall" : "100%"}
-        elevation={isMobile ? "medium" : "large"}
+        // elevation={isMobile ? "medium" : "large"}
         direction={isMobile ? "row" : "column"}
         justify="between"
         style={{ position: "fixed", zIndex: 10 }}

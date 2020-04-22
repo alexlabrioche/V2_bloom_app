@@ -15,7 +15,7 @@ export default {
       "accent-3": "#FFA23F",
       "accent-4": "#8FD671",
       protect: "#8DC168",
-      medium: "#FFCA58",
+      medium: "#faba32",
       destruct: "#DD6666",
       absence: "#696E77",
       focus: "accent-1",

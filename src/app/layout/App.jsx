@@ -68,11 +68,11 @@ function App() {
       areas={isMobile ? mobileLayout.areas : desktopLayout.areas}
     >
       <Box gridArea="appbar">
-        <Appbar isMobile={isMobile} background="white" />
+        <Appbar isMobile={isMobile} background="lightest" />
       </Box>
 
       <Box gridArea="sortbar">
-        {pathname === "/deputes" ? <Sortbar background="white" /> : null}
+        {pathname === "/deputes" ? <Sortbar background="lightest" /> : null}
       </Box>
 
       <Box gridArea="main">

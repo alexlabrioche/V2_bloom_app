@@ -1,4 +1,9 @@
-import { MENU_OPEN, MENU_CLOSE, TOGGLE_MENU } from "./navConstants";
+import {
+  MENU_OPEN,
+  MENU_CLOSE,
+  TOGGLE_MENU,
+  SET_SEARCHBAR,
+} from "./navConstants";
 
 export const openMenu = () => {
   return {
@@ -15,5 +20,12 @@ export const closeMenu = () => {
 export const toggleMenu = () => {
   return {
     type: TOGGLE_MENU,
+  };
+};
+
+export const setSearchbar = (value) => {
+  return {
+    type: SET_SEARCHBAR,
+    payload: { value },
   };
 };

@@ -1,42 +1,34 @@
 import React from "react";
 import Wave from "react-wavify";
-import { Box, Stack, Heading, ThemeContext } from "grommet";
+import { Box, Stack, Text, ThemeContext } from "grommet";
+import getColorFromGrade from "../app/utils/getColorFromGrade";
+import UIGrade from "./UIGrade";
 
 const variants = {
   protect: {
-    height: 20,
-    amplitude: 30,
     color: "protect",
   },
   medium: {
-    height: 65,
-    amplitude: 10,
     color: "medium",
   },
   destruct: {
-    height: 100,
-    amplitude: 20,
     color: "destruct",
   },
   absence: {
-    height: 200,
-    amplitude: 20,
     color: "absence",
   },
 };
 
-export default function WaveGrade({ grade, variant = "protect" }) {
-  const { height, amplitude, color } = variants[variant];
+export default function WaveGrade({ grade }) {
+  const { color } = variants[getColorFromGrade(grade)];
   const { global } = React.useContext(ThemeContext);
 
   return (
     <Box
       height="small"
-      width="small"
-      round="full"
-      border={{ color, size: "large" }}
+      width="auto"
+      round="xxsmall"
       overflow="hidden"
-      background="lighter"
       responsive={false}
     >
       <Stack anchor="center" fill>
@@ -44,16 +36,19 @@ export default function WaveGrade({ grade, variant = "protect" }) {
           <Wave
             fill={global.colors.brand}
             options={{
-              height,
-              amplitude,
+              height: 20,
+              amplitude: 40,
               speed: 0.15,
               points: 3,
             }}
           />
           <Box background="brand" fill />
         </Box>
-
-        <Heading color="white">{grade}/20</Heading>
+        <Text textAlign="center" size="large" color="white">
+          Call2Action
+          <br />
+          Twitter
+        </Text>
       </Stack>
     </Box>
   );

@@ -1,31 +1,27 @@
 import React from "react";
-import { useSelector } from "react-redux";
-import DeputyCard from "../components/DeputyCard";
-import ResponsiveGrid from "../components/ResponsiveGrid";
+import { useSelector, useDispatch } from "react-redux";
 import Page from "../app/layout/Page";
+import DeputiesGrid from "../features/deputies/DeputiesGrid";
+import { setExpandedCard } from "../features/deputies/deputiesActions";
 
 export default function DeputiesPage() {
-  const { deputies, groups, rangeValues } = useSelector(
-    ({ localData }) => localData
-  );
+  const { deputies, expandedCard } = useSelector(({ deputies }) => deputies);
+  const { groups } = useSelector(({ groups }) => groups);
+  const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    if (!expandedCard) {
+      dispatch(setExpandedCard(true));
+    }
+  }, []);
 
   return (
-    <Page background="transparent" margin="none" elevation="none">
-      <ResponsiveGrid gap="small" columns="small" rows="small">
-        {deputies
-          .filter(
-            ({ grade }) =>
-              grade >= rangeValues.minGrade && grade <= rangeValues.maxGrade
-          )
-          .map((deputy) => (
-            <DeputyCard
-              deputy={deputy}
-              group={groups.find(({ id }) => id === deputy.groupId)}
-              key={deputy.id}
-              full
-            />
-          ))}
-      </ResponsiveGrid>
+    <Page
+      background="transparent"
+      elevation="none"
+      margin={{ vertical: "none", horizontal: "small" }}
+    >
+      <DeputiesGrid deputies={deputies} groups={groups} />
     </Page>
   );
 }

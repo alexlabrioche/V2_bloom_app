@@ -1,6 +1,7 @@
 import { combineReducers } from "redux";
 import navReducer from "../../features/navigation/navReducer";
-import localDataReducer from "../../features/localData/localDataReducer";
+import deputiesReducer from "../../features/deputies/deputiesReducer";
+import groupsReducer from "../../features/groups/groupsReducer";
 import searchReducer from "../../features/search/searchReducer";
 
 // import { reducer as FormReducer } from 'redux-form';
@@ -15,8 +16,9 @@ import searchReducer from "../../features/search/searchReducer";
 
 const rootReducer = combineReducers({
   nav: navReducer,
-  search: searchReducer,
-  localData: localDataReducer,
+  // search: searchReducer,
+  deputies: deputiesReducer,
+  groups: groupsReducer,
   // firebase: firebaseReducer,
   // firestore: firestoreReducer,
   // form: FormReducer,

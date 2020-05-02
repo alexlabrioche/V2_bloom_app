@@ -12,12 +12,7 @@ export default function UIGrade({
 }) {
   const gradeColor = getColorFromGrade(grade);
   return (
-    <Box
-      alignSelf={withLabel ? "start" : "end"}
-      align="end"
-      margin="xsmall"
-      {...rest}
-    >
+    <Box alignSelf={withLabel ? "start" : "end"} align="end" {...rest}>
       <Box direction="row" align="baseline">
         <Heading
           size={small ? "medium" : "large"}

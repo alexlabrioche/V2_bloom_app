@@ -8,7 +8,6 @@ import {
   TableCell,
   Anchor,
   TableBody,
-  Box,
   Paragraph,
 } from "grommet";
 import Page from "../app/layout/Page";
@@ -29,8 +28,8 @@ const Bold = ({ children, ...otherProps }) => (
 
 export default function MethodPage() {
   return (
-    <Page>
-      <Heading level={1} size="large" textAlign="center" color="accent-3">
+    <Page paper goBack title="Méthodologie">
+      <Heading level={1} textAlign="center" color="accent-3">
         Notre Méthodologie
       </Heading>
       <Heading level={3}>1- LE CHOIX DES TEXTES ET DES AMENDEMENTS</Heading>

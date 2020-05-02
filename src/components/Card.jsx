@@ -23,7 +23,7 @@ export default function DeputyCard({ deputy, group, ...rest }) {
       background="white"
       elevation={expandedCard ? "small" : "xsmall"}
       pad="small"
-      round={expandedCard ? "xsmall" : "xxsmall"}
+      round="xxsmall"
       flex
       direction={expandedCard ? "column" : "row-reverse"}
       justify={expandedCard ? "start" : "between"}
@@ -56,7 +56,6 @@ export default function DeputyCard({ deputy, group, ...rest }) {
         <Text
           size={expandedCard ? "medium" : "small"}
           margin={{ top: "xsmall" }}
-          // color="dark-3"
           truncate
         >
           {firstName}

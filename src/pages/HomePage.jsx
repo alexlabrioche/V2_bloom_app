@@ -1,47 +1,37 @@
 import React from "react";
-import {
-  Heading,
-  Paragraph,
-  Box,
-  Button,
-  Text,
-  ResponsiveContext,
-} from "grommet";
+import { Heading, Paragraph, Box, Button, Text } from "grommet";
 import { useHistory } from "react-router-dom";
 
 import Page from "../app/layout/Page";
+import useResponsive from "../app/hooks/useResponsive";
 
 export default function HomePage() {
   const history = useHistory();
-  const size = React.useContext(ResponsiveContext);
-  const isMobile = size === "small";
+  const { isMobile, size } = useResponsive();
   return (
-    <Page>
-      <Box>
-        <Box background="destruct" pad="medium" justify="center" align="center">
-          <Heading color="white">ATTENTION</Heading>
-          <Text color="white">
-            <strong>App en construction : </strong>les notes sont générées
-            aléatoirement et ne reflètent en AUCUN cas la réalité.
-          </Text>
-        </Box>
-        <Heading level={1} size="large" textAlign="center" color="brand">
-          Bloom Notation
-        </Heading>
-        <Paragraph fill margin={{ horizontal: size }}>
-          <strong>Intro texte</strong> Lorem ipsum dolor sit amet consectetur
-          adipisicing elit. Accusamus alias hic velit eaque, numquam saepe
-          architecto fugit, iusto vero quaerat ullam, facilis quam tempore
-          magnam molestiae consequuntur sit soluta nam. Intro texte Lorem ipsum
-          dolor sit amet consectetur adipisicing elit. Accusamus alias hic velit
-          eaque, numquam saepe architecto fugit, iusto vero quaerat ullam,
-          facilis quam tempore magnam molestiae consequuntur sit soluta nam.
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facilis
-          alias corporis, ea corrupti quia provident ut? Facere, a laboriosam
-          quidem maiores ducimus voluptatibus sit tempore explicabo ad hic,
-          tenetur rem.
-        </Paragraph>
+    <Page paper title="Accueil">
+      <Box background="destruct" pad="medium" justify="center" align="center">
+        <Heading color="white">ATTENTION</Heading>
+        <Text color="white">
+          <strong>App en construction : </strong>les notes sont générées
+          aléatoirement et ne reflètent en AUCUN cas la réalité.
+        </Text>
       </Box>
+      <Heading level={1} size="large" textAlign="center" color="brand">
+        Bloom Notation
+      </Heading>
+      <Paragraph fill margin={{ horizontal: size }}>
+        <strong>Intro texte</strong> Lorem ipsum dolor sit amet consectetur
+        adipisicing elit. Accusamus alias hic velit eaque, numquam saepe
+        architecto fugit, iusto vero quaerat ullam, facilis quam tempore magnam
+        molestiae consequuntur sit soluta nam. Intro texte Lorem ipsum dolor sit
+        amet consectetur adipisicing elit. Accusamus alias hic velit eaque,
+        numquam saepe architecto fugit, iusto vero quaerat ullam, facilis quam
+        tempore magnam molestiae consequuntur sit soluta nam. Lorem ipsum dolor
+        sit amet, consectetur adipisicing elit. Facilis alias corporis, ea
+        corrupti quia provident ut? Facere, a laboriosam quidem maiores ducimus
+        voluptatibus sit tempore explicabo ad hic, tenetur rem.
+      </Paragraph>
 
       <Box
         margin={{

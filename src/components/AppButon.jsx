@@ -15,9 +15,8 @@ export default function AppButon({
       onClick={onClick}
       focusIndicator={false}
       background={isHighlighted ? "brand" : "transparent"}
-      flex
-      alignContent="center"
-      justify="center"
+      // alignContent="center"
+      // justify="center"
       {...rest}
     >
       <Button

@@ -6,6 +6,7 @@ import Avatar from "./Avatar";
 import UIGrade from "./UIGrade";
 import getColorFromGrade from "../app/utils/getColorFromGrade";
 import DeputiesGrid from "../features/deputies/DeputiesGrid";
+import useResponsive from "../app/hooks/useResponsive";
 
 export default function GroupCard({ group, deputies, ...rest }) {
   const [expanded, setExpanded] = React.useState(false);
@@ -14,12 +15,14 @@ export default function GroupCard({ group, deputies, ...rest }) {
       deputies.length
   );
   const gradeColor = getColorFromGrade(grade);
+
+  const { isMobile, size } = useResponsive();
   return (
     <Box
       background={expanded ? "light-1" : "white"}
       elevation="small"
       round="xxsmall"
-      pad="small"
+      pad={{ vertical: "medium", horizontal: isMobile ? "medium" : size }}
       {...rest}
     >
       <Box as="header" flex direction="row" justify="between">
@@ -38,16 +41,14 @@ export default function GroupCard({ group, deputies, ...rest }) {
         }}
         margin={{ top: "small" }}
       >
-        <Text size="medium" margin={{ top: "xsmall" }} color="dark-3" truncate>
+        <Text size="small" margin={{ top: "small" }} color="dark-3" truncate>
           <strong>Groupe Européen :</strong>
         </Text>
-        <Heading level={2} size="large" color="brand" margin="none" truncate>
+        <Heading level={2} color="brand" margin="none">
           {group.name}
         </Heading>
         <Text size="medium" size="small" color="dark-3" truncate>
-          {`Ce groupe à ${deputies.length} député${
-            deputies.length === 1 ? "" : "s"
-          } Français en son sein`}
+          {`${group.count} Eurodéputés dont ${deputies.length} Français`}
         </Text>
         <Button
           plain

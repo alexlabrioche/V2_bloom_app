@@ -1,15 +1,15 @@
-import React, { useContext } from "react";
+import React from "react";
 import { useLocation } from "react-router-dom";
-import { Box, Main, Grid, ResponsiveContext } from "grommet";
+import { Box, Grid } from "grommet";
 
 import Appbar from "../../features/navigation/Appbar/Appbar";
-import Footer from "../../features/navigation/Footer/Footer";
-import Sortbar from "../../features/navigation/Sort/Sort";
+import Sortbar from "../../features/navigation/Sortbar/Sortbar";
 import AppRoutes from "../routes";
+import useResponsive from "../hooks/useResponsive";
 
 const desktopLayout = {
-  rows: ["auto", "flex"],
   columns: ["auto", "flex"],
+  rows: ["auto", "flex"],
   areas: [
     {
       name: "appbar",
@@ -19,7 +19,7 @@ const desktopLayout = {
     {
       name: "sortbar",
       start: [1, 0],
-      end: [1, 0],
+      end: [1, 1],
     },
     {
       name: "main",
@@ -30,8 +30,8 @@ const desktopLayout = {
 };
 
 const mobileLayout = {
-  rows: ["auto", "auto", "flex", "auto"],
   columns: ["auto"],
+  rows: ["auto", "auto", "flex"],
   areas: [
     {
       name: "appbar",
@@ -48,50 +48,29 @@ const mobileLayout = {
       start: [0, 2],
       end: [0, 2],
     },
-    {
-      name: "footer",
-      start: [0, 3],
-      end: [0, 3],
-    },
   ],
 };
 
 function App() {
-  const size = useContext(ResponsiveContext);
   const { pathname } = useLocation();
-  const isMobile = size === "small";
+  const { isMobile } = useResponsive();
   return (
-    <Grid
-      fill
-      rows={isMobile ? mobileLayout.rows : desktopLayout.rows}
-      columns={isMobile ? mobileLayout.columns : desktopLayout.columns}
-      areas={isMobile ? mobileLayout.areas : desktopLayout.areas}
-    >
-      <Box gridArea="appbar">
-        <Appbar isMobile={isMobile} background="lightest" />
-      </Box>
-
-      <Box gridArea="sortbar">
-        {pathname === "/deputes" ? <Sortbar background="lightest" /> : null}
-      </Box>
-
-      <Box gridArea="main">
-        <Main flex="grow" background="lightest">
-          <AppRoutes />
-        </Main>
-      </Box>
-
-      {isMobile && (
-        <Box gridArea="footer">
-          <Footer
-            background="white"
-            pad="small"
-            justify="end"
-            elevation="medium"
-          />
+    <Box fill background="lightest">
+      <Grid
+        fill
+        rows={isMobile ? mobileLayout.rows : desktopLayout.rows}
+        columns={isMobile ? mobileLayout.columns : desktopLayout.columns}
+        areas={isMobile ? mobileLayout.areas : desktopLayout.areas}
+      >
+        <Box gridArea="appbar">{pathname !== "/admin" ? <Appbar /> : null}</Box>
+        <Box gridArea="sortbar">
+          {pathname === "/deputes" ? <Sortbar /> : null}
         </Box>
-      )}
-    </Grid>
+        <Box gridArea="main">
+          <AppRoutes />
+        </Box>
+      </Grid>
+    </Box>
   );
 }
 

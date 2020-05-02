@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Box, ResponsiveContext } from "grommet";
+import { Box } from "grommet";
 import {
   Ascend,
   Descend,
@@ -16,20 +16,20 @@ import {
   sortAlphabetically,
   setExpandedCard,
 } from "../../deputies/deputiesActions";
+import useResponsive from "../../../app/hooks/useResponsive";
 
-export default function Sortbar({ ...rest }) {
+export default function Sortbar() {
   const { alphaOrder, gradeOrder, expandedCard } = useSelector(
     ({ deputies }) => deputies
   );
   const dispatch = useDispatch();
-  const size = React.useContext(ResponsiveContext);
-  const isMobile = size === "small";
+  const { isMobile } = useResponsive();
 
   return (
-    <Box style={{ zIndex: 20 }} width="auto" {...rest}>
+    <Box style={{ zIndex: 20 }} width="auto">
       <Box
         elevation="xlarge"
-        margin={{ top: "small", horizontal: "small" }}
+        margin={{ top: "medium", horizontal: "medium" }}
         background="white"
         round="xxsmall"
       >
@@ -89,7 +89,6 @@ export default function Sortbar({ ...rest }) {
               onClick={() => dispatch(setExpandedCard(!expandedCard))}
             />
           </Box>
-          <Box flex="grow" />
         </Box>
       </Box>
     </Box>

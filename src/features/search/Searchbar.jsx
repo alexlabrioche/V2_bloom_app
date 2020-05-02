@@ -1,23 +1,21 @@
 import React, { useState, useEffect, createRef } from "react";
 import { Box, Button, Keyboard, TextInput } from "grommet";
 import { Search as SearchIcon } from "grommet-icons";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { setSearchbar } from "../navigation/navActions";
 
 const Search = ({
   label = "Rechercher",
   placeholder = "Rechercher...",
   ...rest
 }) => {
-  const { suggestions: allSuggestions, deputies } = useSelector(
+  const { suggestions: all, deputies } = useSelector(
     ({ deputies }) => deputies
   );
-  const { showSearchbar: open } = useSelector(({ nav }) => nav);
-  const dispatch = useDispatch();
 
   const [value, setValue] = useState("");
-  const [suggestions, setSuggestions] = useState(allSuggestions);
+  const [open, setOpen] = useState(all);
+  const [suggestions, setSuggestions] = useState(all);
   const inputRef = createRef();
   const history = useHistory();
 
@@ -41,9 +39,9 @@ const Search = ({
     let nextSuggestions;
     if (nextValue) {
       const regexp = new RegExp(nextValue, "i");
-      nextSuggestions = allSuggestions.filter((c) => regexp.test(c));
+      nextSuggestions = all.filter((c) => regexp.test(c));
     } else {
-      nextSuggestions = allSuggestions;
+      nextSuggestions = all;
     }
     if (nextSuggestions.length > 0) {
       setValue(nextValue);
@@ -56,7 +54,7 @@ const Search = ({
       if (suggestions.length === 1) {
         goToPage(suggestions[0]);
       } else {
-        const matches = allSuggestions.filter(
+        const matches = all.filter(
           (c) => c.toLowerCase() === value.toLowerCase()
         );
         if (matches.length === 1) {
@@ -74,7 +72,7 @@ const Search = ({
     <Box
       pad={open ? "none" : "small"}
       hoverIndicator
-      onClick={() => dispatch(setSearchbar(true))}
+      onClick={() => setOpen(true)}
       justify="center"
       {...rest}
     >
@@ -87,7 +85,7 @@ const Search = ({
           label={label}
         />
       ) : (
-        <Keyboard onEsc={() => dispatch(setSearchbar(false))} onEnter={onEnter}>
+        <Keyboard onEsc={() => setOpen(false)} onEnter={onEnter}>
           <TextInput
             ref={inputRef}
             dropHeight="medium"
@@ -99,10 +97,10 @@ const Search = ({
             onChange={onChange}
             onSelect={onSelect}
             onSuggestionsOpen={() => {
-              dispatch(setSearchbar(true));
+              setOpen(true);
             }}
             onSuggestionsClose={() => {
-              dispatch(setSearchbar(false));
+              setOpen(false);
             }}
           />
         </Keyboard>

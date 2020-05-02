@@ -2,6 +2,7 @@ import React from "react";
 
 import GroupCard from "../../components/GroupCard";
 import ResponsiveGrid from "../../components/ResponsiveGrid";
+import { useSelector } from "react-redux";
 
 const columns = {
   small: ["auto"],
@@ -17,7 +18,9 @@ const rows = {
   xlarge: ["none"],
 };
 
-export default function GroupsGrid({ groups, deputies }) {
+export default function GroupsGrid() {
+  const { groups } = useSelector(({ groups }) => groups);
+  const { deputies } = useSelector(({ deputies }) => deputies);
   return (
     <ResponsiveGrid gap="medium" rows={rows} columns={columns}>
       {groups.map((group) => (

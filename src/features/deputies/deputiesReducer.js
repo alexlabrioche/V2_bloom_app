@@ -1,13 +1,13 @@
 import { createReducer } from "../../app/utils/reducerUtils";
-import deputies from "../../app/data/deputies.json";
 import getColorFromGrade from "../../app/utils/getColorFromGrade";
+import slugify from "../../app/utils/slugify";
 
 import {
   SET_DEPUTY,
   SORT_BY_GRADE,
   SORT_ALPHABETICALLY,
   SET_EXPANDED_CARD,
-  // FILTER_DEPUTIES_BY_GRADE,
+  SET_DEPUTIES,
 } from "./deputiesConstants";
 
 function compareValues(key, order = "asc") {
@@ -38,46 +38,30 @@ const mockGrades = (deputiesArr) => {
   });
 };
 
-// function getGradesAndValues({ minGrade, maxGrade }) {
-//   const isOdd = (n) => n % 2 !== 0;
-//   let grade = isOdd(minGrade) ? minGrade - 1 : minGrade;
-//   let value = 0;
-//   let ret = [{ value, grade }];
-//   do {
-//     value += 1;
-//     grade += 2;
-//     ret.push({ value, grade });
-//   } while (grade < 20);
-//   return ret;
-// }
-
-const deputiesWithGrades = mockGrades(deputies);
-
-const suggestions = deputies
-  .sort(compareValues("lastName", "asc"))
-  .map((deputy) => deputy.fullName);
-
-// const minMaxGrade = (deputies) => ({
-//   minGrade: Math.min(...deputies.map((d) => d.grade)),
-//   maxGrade: Math.max(...deputies.map((d) => d.grade)),
-// });
-
 const toggleOrder = (order) => (order === "asc" ? "desc" : "asc");
 
-// const initScale = getGradesAndValues(minMaxGrade(deputiesWithGrades));
-
-// const initValues = [
-//   initScale[0].value,
-//   initScale[initScale.length - 1].value + 1,
-// ];
-
 const initialState = {
-  deputies: deputiesWithGrades,
+  deputies: [],
   alphaOrder: "asc",
   gradeOrder: "asc",
   expandedCard: false,
-  suggestions,
+  suggestions: [],
   deputyDetails: {},
+};
+
+const setDeputies = (state, payload) => {
+  const deputies = payload.deputies.map((d) => ({
+    ...d,
+    slug: slugify(d.fullName),
+  }));
+  const suggestions = deputies
+    .sort(compareValues("lastName", "asc"))
+    .map((deputy) => deputy.fullName);
+  return {
+    ...state,
+    suggestions,
+    deputies,
+  };
 };
 
 const setDeputy = (state, payload) => {
@@ -135,6 +119,7 @@ const setExpandedCard = (state, payload) => {
 // };
 
 export default createReducer(initialState, {
+  [SET_DEPUTIES]: setDeputies,
   [SET_DEPUTY]: setDeputy,
   [SORT_BY_GRADE]: sortByGrade,
   [SORT_ALPHABETICALLY]: sortAlphabetically,

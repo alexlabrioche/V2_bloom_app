@@ -5,6 +5,10 @@
 /.pnp
 .pnp.js
 /.vscode
+/db/assets
+
+# Firebase config
+/src/app/config/fbConfig.js
 
 # testing
 /coverage

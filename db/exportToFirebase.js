@@ -1,6 +1,16 @@
 import { flattenDeep, uniqBy, last } from "lodash";
 import meps from "./assets/ep_meps.json";
 import firebase from "../src/app/config/firebase";
+import slug from "slugify";
+
+function slugify(str) {
+  return slug(str, {
+    replacement: "-",
+    remove: undefined,
+    lower: true,
+    strict: false,
+  });
+}
 
 const db = firebase.firestore();
 
@@ -40,6 +50,7 @@ function extractFrenchDeputies(meps) {
     acc[id] = {
       id,
       fullName: deputy.Name.full,
+      slug: slugify(deputy.Name.full),
       firstName: deputy.Name.sur,
       lastName: deputy.Name.family,
       profilePic: deputy.Photo,

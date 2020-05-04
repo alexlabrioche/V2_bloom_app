@@ -1,13 +1,13 @@
 import { createReducer } from "../../app/utils/reducerUtils";
 import getColorFromGrade from "../../app/utils/getColorFromGrade";
-import slugify from "../../app/utils/slugify";
 
 import {
   SET_DEPUTY,
   SORT_BY_GRADE,
   SORT_ALPHABETICALLY,
   SET_EXPANDED_CARD,
-  SET_DEPUTIES,
+  SET_FRENCH_DEPUTIES,
+  SET_ALL_DEPUTIES,
 } from "./deputiesConstants";
 
 function compareValues(key, order = "asc") {
@@ -41,26 +41,36 @@ const mockGrades = (deputiesArr) => {
 const toggleOrder = (order) => (order === "asc" ? "desc" : "asc");
 
 const initialState = {
-  deputies: [],
+  french: {},
+  all: [],
   alphaOrder: "asc",
   gradeOrder: "asc",
   expandedCard: false,
   suggestions: [],
   deputyDetails: {},
+  frenchCount: 0,
+  allCount: 0,
 };
 
-const setDeputies = (state, payload) => {
-  const deputies = payload.deputies.map((d) => ({
-    ...d,
-    slug: slugify(d.fullName),
-  }));
-  const suggestions = deputies
+const setFrenchDeputies = (state, payload) => {
+  const suggestions = Object.keys(payload.deputies)
+    .map((i) => payload.deputies[i])
     .sort(compareValues("lastName", "asc"))
     .map((deputy) => deputy.fullName);
   return {
     ...state,
     suggestions,
-    deputies,
+    french: payload.deputies,
+    frenchCount: suggestions.length,
+  };
+};
+
+const setAllDeputies = (state, payload) => {
+  const allCount = Object.keys(payload.all).map((i) => payload.all[i]).length;
+  return {
+    ...state,
+    all: payload.all,
+    allCount,
   };
 };
 
@@ -100,29 +110,11 @@ const setExpandedCard = (state, payload) => {
   };
 };
 
-// const getGradeFromValue = (scale, value) => {
-//   return scale.find((s) => s.value === value).grade;
-// };
-
-// const filterDeputies = (state, payload) => {
-//   const min = payload.values[0];
-//   const max = payload.values[1] - 1;
-//   return {
-//     ...state,
-//     rangeValues: {
-//       ...state.rangeValues,
-//       values: payload.values,
-//       minGrade: getGradeFromValue(state.rangeValues.scale, min),
-//       maxGrade: getGradeFromValue(state.rangeValues.scale, max),
-//     },
-//   };
-// };
-
 export default createReducer(initialState, {
-  [SET_DEPUTIES]: setDeputies,
+  [SET_FRENCH_DEPUTIES]: setFrenchDeputies,
+  [SET_ALL_DEPUTIES]: setAllDeputies,
   [SET_DEPUTY]: setDeputy,
   [SORT_BY_GRADE]: sortByGrade,
   [SORT_ALPHABETICALLY]: sortAlphabetically,
   [SET_EXPANDED_CARD]: setExpandedCard,
-  // [FILTER_DEPUTIES_BY_GRADE]: filterDeputies,
 });

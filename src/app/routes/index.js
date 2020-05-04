@@ -7,6 +7,7 @@ import GroupsPage from "../../pages/GroupsPage";
 import DeputiesPage from "../../pages/DeputiesPage";
 import DeputyPage from "../../pages/DeputyPage";
 import AdminPage from "../../pages/AdminPage";
+import LostPage from "../../pages/LostPage";
 
 export default function AppRoutes() {
   return (
@@ -26,9 +27,10 @@ export default function AppRoutes() {
       <Route path="/admin">
         <AdminPage />
       </Route>
-      <Route path="/">
+      <Route exact path="/">
         <HomePage />
       </Route>
+      <Route component={LostPage} />
     </Switch>
   );
 }

@@ -14,6 +14,8 @@ import extend from "./app/theme/global";
 import { ReactReduxFirebaseProvider } from "react-redux-firebase";
 import { createFirestoreInstance } from "redux-firestore";
 import firebase from "./app/config/firebase";
+import ReduxToastr from "react-redux-toastr";
+import "react-redux-toastr/lib/css/react-redux-toastr.min.css";
 
 const rrfConfig = {
   userProfile: "users",
@@ -37,6 +39,11 @@ ReactDOM.render(
       <Grommet theme={deepMerge(grommet, extend)} full>
         <BrowserRouter>
           <ScrollToTop />
+          <ReduxToastr
+            position="bottom-right"
+            transitionIn="fadeIn"
+            transitionOut="fadeOut"
+          />
           <App />
         </BrowserRouter>
       </Grommet>

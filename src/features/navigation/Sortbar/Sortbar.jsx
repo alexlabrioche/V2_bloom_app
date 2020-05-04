@@ -9,7 +9,7 @@ import {
   AddCircle,
 } from "grommet-icons";
 
-import Searchbar from "../../search/Searchbar";
+import Searchbar from "./Searchbar";
 import AppButton from "../../../components/AppButon";
 import {
   sortByGrade,

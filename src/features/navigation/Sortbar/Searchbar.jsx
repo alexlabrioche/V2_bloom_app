@@ -9,13 +9,10 @@ const Search = ({
   placeholder = "Rechercher...",
   ...rest
 }) => {
-  const { suggestions: all, deputies } = useSelector(
-    ({ deputies }) => deputies
-  );
+  const { suggestions, deputies } = useSelector(({ deputies }) => deputies);
 
   const [value, setValue] = useState("");
-  const [open, setOpen] = useState(all);
-  const [suggestions, setSuggestions] = useState(all);
+  const [open, setOpen] = useState(false);
   const inputRef = createRef();
   const history = useHistory();
 
@@ -39,13 +36,12 @@ const Search = ({
     let nextSuggestions;
     if (nextValue) {
       const regexp = new RegExp(nextValue, "i");
-      nextSuggestions = all.filter((c) => regexp.test(c));
+      nextSuggestions = suggestions.filter((c) => regexp.test(c));
     } else {
-      nextSuggestions = all;
+      nextSuggestions = suggestions;
     }
     if (nextSuggestions.length > 0) {
       setValue(nextValue);
-      setSuggestions(nextSuggestions);
     }
   };
 
@@ -54,7 +50,7 @@ const Search = ({
       if (suggestions.length === 1) {
         goToPage(suggestions[0]);
       } else {
-        const matches = all.filter(
+        const matches = suggestions.filter(
           (c) => c.toLowerCase() === value.toLowerCase()
         );
         if (matches.length === 1) {
@@ -70,7 +66,6 @@ const Search = ({
 
   return (
     <Box
-      pad={open ? "none" : "small"}
       hoverIndicator
       onClick={() => setOpen(true)}
       justify="center"

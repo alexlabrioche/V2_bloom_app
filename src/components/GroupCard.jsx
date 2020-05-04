@@ -48,7 +48,7 @@ export default function GroupCard({ group, deputies, ...rest }) {
           {group.name}
         </Heading>
         <Text size="medium" size="small" color="dark-3" truncate>
-          {`${group.count} Eurodéputés dont ${deputies.length} Français`}
+          {`${deputies.length} Eurodéputés Français`}
         </Text>
         <Button
           plain

@@ -4,8 +4,14 @@ import Footer from "../../features/navigation/Footer/Footer";
 import BackButton from "../../components/BackButton";
 import { Helmet } from "react-helmet";
 import useResponsive from "../hooks/useResponsive";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import Loader from "../../components/Loader";
+import {
+  getFrenchDeputies,
+  getAllDeputies,
+} from "../../features/deputies/deputiesActions";
+import { getGroups } from "../../features/groups/groupsActions";
+import { isEmpty } from "lodash";
 
 export default function Page({
   paper = false,
@@ -17,6 +23,16 @@ export default function Page({
 }) {
   const { isMobile, size } = useResponsive();
   const { loading } = useSelector(({ async }) => async);
+  const { groups } = useSelector(({ groups }) => groups);
+  const { french, all } = useSelector(({ deputies }) => deputies);
+  const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    groups.length === 0 && dispatch(getGroups());
+    isEmpty(french) && dispatch(getFrenchDeputies());
+    isEmpty(all) && dispatch(getAllDeputies());
+  }, []);
+
   return (
     <Main
       flex="grow"
@@ -27,34 +43,40 @@ export default function Page({
       background="lightest"
       {...rest}
     >
-      <Box
-        flex="grow"
-        background={paper ? "white" : "transparent"}
-        margin="small"
-        round={paper ? "xxsmall" : "none"}
-        elevation={paper ? "small" : "none"}
-        pad={
-          paper && {
-            horizontal: isMobile ? "medium" : size,
-            vertical: "medium",
+      {loading ? (
+        <Loader />
+      ) : (
+        <Box
+          flex="grow"
+          background={paper ? "white" : "transparent"}
+          margin="small"
+          round={paper ? "xxsmall" : "none"}
+          elevation={paper ? "small" : "none"}
+          pad={
+            paper
+              ? {
+                  horizontal: isMobile ? "medium" : size,
+                  vertical: "medium",
+                }
+              : "none"
           }
-        }
-      >
-        <Helmet>
-          <title>{`${title} | Bloom`}</title>
-        </Helmet>
-        {loading ? <Loader /> : children}
-        {goBack && (
-          <Box
-            border={{ color: "light-4", side: "top" }}
-            pad={{ top: "small" }}
-          >
-            <Box alignSelf="start">
-              <BackButton />
+        >
+          <Helmet>
+            <title>{`${title} | Bloom`}</title>
+          </Helmet>
+          {children}
+          {goBack && (
+            <Box
+              border={{ color: "light-4", side: "top" }}
+              pad={{ top: "small" }}
+            >
+              <Box alignSelf="start">
+                <BackButton />
+              </Box>
             </Box>
-          </Box>
-        )}
-      </Box>
+          )}
+        </Box>
+      )}
       <Footer />
     </Main>
   );

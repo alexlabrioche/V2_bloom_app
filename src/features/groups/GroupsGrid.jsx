@@ -20,15 +20,31 @@ const rows = {
 
 export default function GroupsGrid() {
   const { groups } = useSelector(({ groups }) => groups);
-  const { deputies } = useSelector(({ deputies }) => deputies);
+  const { french } = useSelector(({ deputies }) => deputies);
+
+  const filterRelatedDeputies = (deputies, groupId) => {
+    return deputies.filter(
+      (deputy) => deputy.groups[deputy.groups.length - 1].groupid === groupId
+    );
+  };
+
   return (
     <ResponsiveGrid gap="medium" rows={rows} columns={columns}>
-      {groups.map((group) => (
-        <GroupCard
-          group={group}
-          deputies={deputies.filter((deputy) => deputy.groupId === group.id)}
-        />
-      ))}
+      {groups.map((group) => {
+        const relatedDeputies = filterRelatedDeputies(
+          Object.keys(french).map((i) => french[i]),
+          group.id
+        );
+        return (
+          relatedDeputies.length > 0 && (
+            <GroupCard
+              key={group.id}
+              group={group}
+              deputies={relatedDeputies}
+            />
+          )
+        );
+      })}
     </ResponsiveGrid>
   );
 }

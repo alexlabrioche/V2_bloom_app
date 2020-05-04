@@ -11,13 +11,10 @@ const Login = () => {
   return auth.isLoaded && auth.isEmpty ? (
     <LoginForm />
   ) : (
-    <Box>
-      <Button
-        onClick={() => dispatch(logout())}
-        plain
-        label={`Déconnecter ${auth.email}`}
-      />
-    </Box>
+    <Button
+      onClick={() => dispatch(logout())}
+      label={`Déconnecter ${auth.email}`}
+    />
   );
 };
 

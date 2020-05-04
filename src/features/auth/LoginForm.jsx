@@ -17,7 +17,6 @@ export default function LoginForm() {
         <TextInput
           name="email"
           type="email"
-          value="alexbakerdeveloper@gmail.com"
           ref={register({ required: true })}
         />
         {errors.username && (
@@ -30,7 +29,6 @@ export default function LoginForm() {
         <TextInput
           name="password"
           type="password"
-          value="Bloom1234"
           ref={register({ required: true })}
         />
         {errors.password && (
